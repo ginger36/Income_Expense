@@ -1,9 +1,9 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="th">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>nongsorin - The Real Profit ✨</title>
+<title>nongsorin - The Balanced Profit ✨</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -29,7 +29,7 @@ body {
     overflow-x: hidden;
 }
 
-/* --- อิโมจิพื้นหลัง ลอยอยู่กับที่แบบนุ่มนวล --- */
+/* --- อิโมจิพื้นหลัง ลอยนิ่งๆ --- */
 #bg-emojis {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -42,69 +42,67 @@ body {
 }
 @keyframes gentleFloat {
     0% { transform: translateY(0) rotate(0deg); }
-    100% { transform: translateY(-30px) rotate(15deg); }
+    100% { transform: translateY(-25px) rotate(10deg); }
 }
 
 .container { max-width: 500px; width: 92%; padding: 40px 0 100px; position: relative; z-index: 1; }
 
-/* --- ส่วนโลโก้ No-Border + แสงฟุ้ง --- */
+/* --- ส่วนโลโก้ แสงฟุ้งออร่า --- */
 .header-section { margin-bottom: 50px; text-align: center; position: relative; }
 .logo-container {
     position: relative;
-    width: 220px; height: 220px;
+    width: 200px; height: 200px;
     margin: 0 auto;
 }
 .logo-glow {
-    width: 115px; height: 115px;
+    width: 110px; height: 110px;
     border-radius: 50%;
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    box-shadow: 0 0 50px 15px var(--tiffany), 0 0 80px 25px rgba(92, 133, 214, 0.4);
+    box-shadow: 0 0 45px 12px var(--tiffany), 0 0 75px 22px rgba(92, 133, 214, 0.35);
     background: #fff;
     z-index: 5;
-    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
 }
-.logo-glow img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+.logo-glow img { width: 100%; height: 100%; object-fit: cover; }
 
 .orbit {
     position: absolute;
-    font-size: 30px;
+    font-size: 28px;
     z-index: 6;
     animation: orbitGentle 4s ease-in-out infinite alternate;
 }
 @keyframes orbitGentle { 
-    from { transform: scale(1) translateY(0); } 
-    to { transform: scale(1.1) translateY(-15px); } 
+    from { transform: translateY(0); } 
+    to { transform: translateY(-12px); } 
 }
+.e1 { top: 10%; left: 5%; }
+.e2 { top: 10%; right: 5%; animation-delay: 0.5s; }
+.e3 { bottom: 15%; left: 0%; animation-delay: 1s; }
+.e4 { bottom: 15%; right: 0%; animation-delay: 1.5s; }
 
-.e1 { top: 10%; left: 10%; }
-.e2 { top: 10%; right: 10%; animation-delay: 0.5s; }
-.e3 { bottom: 15%; left: 5%; animation-delay: 1s; }
-.e4 { bottom: 15%; right: 5%; animation-delay: 1.5s; }
-
-/* --- บล็อกไล่สี & Glassmorphism --- */
+/* --- บล็อก Glassmorphism --- */
 .section {
     background: var(--glass);
     backdrop-filter: blur(12px);
     border-radius: 35px;
     padding: 28px;
     margin-bottom: 25px;
-    box-shadow: 0 20px 45px rgba(0,0,0,0.06);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
     border: 1px solid rgba(255, 255, 255, 0.6);
-    transition: transform 0.3s ease;
 }
 
-h2 { font-size: 19px; color: var(--dark-navy); margin-bottom: 22px; display: flex; align-items: center; gap: 10px; }
+h2 { font-size: 18px; color: var(--dark-navy); margin-bottom: 20px; font-weight: 500; }
 
-.input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .full-width { grid-column: span 2; }
 
 input, select {
     background: rgba(255, 255, 255, 0.9);
     border: 1.5px solid #eee;
-    padding: 14px;
-    border-radius: 18px;
+    padding: 12px;
+    border-radius: 15px;
     outline: none; font-size: 14px;
 }
 
@@ -112,34 +110,42 @@ input, select {
     width: 100%;
     background: linear-gradient(45deg, var(--tiffany), var(--navy), var(--dark-navy));
     background-size: 200% auto;
-    color: #fff; border: none; padding: 18px; border-radius: 22px;
-    font-size: 17px; font-weight: 500; margin-top: 15px; cursor: pointer;
-    box-shadow: 0 10px 25px rgba(92, 133, 214, 0.3);
-    transition: 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+    color: #fff; border: none; padding: 16px; border-radius: 20px;
+    font-size: 16px; font-weight: 500; margin-top: 15px; cursor: pointer;
+    box-shadow: 0 8px 20px rgba(92, 133, 214, 0.25);
+    transition: 0.4s ease;
 }
-.btn-main:hover { background-position: right center; transform: scale(1.02); }
+.btn-main:hover { background-position: right center; transform: translateY(-2px); }
 
-/* --- ผลลัพธ์สรุปยอด --- */
+/* --- ผลลัพธ์สรุปยอด (แก้ฟอนต์ตรงนี้) --- */
 .res-box {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 18px 25px; border-radius: 22px; margin-bottom: 12px;
-    font-weight: 500;
+    padding: 16px 22px; border-radius: 20px; margin-bottom: 10px;
+    font-size: 15px; font-weight: 400; /* คุมให้เท่ากันหมด */
 }
-.res-in { background: #e0f2f1; color: #00796b; border-left: 6px solid var(--tiffany); }
-.res-cost { background: #fff3e0; color: #ef6c00; border-left: 6px solid #ffcc80; }
-.res-out { background: #ffebee; color: #c62828; border-left: 6px solid var(--red); }
-.res-net { background: linear-gradient(135deg, var(--navy), var(--dark-navy)); color: #fff; font-size: 22px; }
+.res-in { background: #e0f2f1; color: #00796b; border-left: 5px solid var(--tiffany); }
+.res-cost { background: #fff3e0; color: #ef6c00; border-left: 5px solid #ffcc80; }
+.res-out { background: #ffebee; color: #c62828; border-left: 5px solid var(--red); }
+
+/* สรุปกำไรสุทธิ - ปรับให้ฟอนต์เหมือนคนอื่นแต่เด่นด้วยสี */
+.res-net { 
+    background: linear-gradient(135deg, var(--navy), var(--dark-navy)); 
+    color: #fff; 
+    font-size: 18px; /* ใหญ่กว่านิดเดียวเพื่อความเด่นแต่ใช้ฟอนต์เดียวกัน */
+    font-weight: 500;
+    box-shadow: 0 10px 20px rgba(92, 133, 214, 0.2);
+}
 
 .spending-detail {
     margin-top: 25px; background: rgba(255,255,255,0.4);
-    border-radius: 25px; padding: 20px;
+    border-radius: 20px; padding: 18px;
 }
 .spending-item {
     display: flex; justify-content: space-between; padding: 10px 0;
     border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 14px;
 }
 
-.footer-text { text-align: center; font-size: 12px; color: #999; margin-top: 50px; }
+.footer-text { text-align: center; font-size: 11px; color: #999; margin-top: 50px; opacity: 0.7; }
 </style>
 </head>
 <body>
@@ -157,29 +163,29 @@ input, select {
                 <img src="att.0s6x5y6gyBz3Q27JNKonjuezkpDX0Fr1zY9NUqwywz4.jpeg" alt="logo">
             </div>
         </div>
-        <h1 style="color: var(--dark-navy); font-size: 34px; margin-top: 15px;">nongsorin</h1>
-        <p style="opacity: 0.5; font-size: 14px;">The Profit Aesthetic Strategy ✨</p>
+        <h1 style="color: var(--dark-navy); font-size: 32px; margin-top: 12px; font-weight: 500;">nongsorin</h1>
+        <p style="opacity: 0.5; font-size: 13px;">Safe & Wealthy Financial Space ✨</p>
     </div>
 
     <div class="section">
-        <h2>✨ บันทึกใหม่</h2>
+        <h2>✨ เพิ่มรายการใหม่</h2>
         <div class="input-grid">
-            <input type="text" id="desc" placeholder="รายการนี้คืออะไรจ๊ะ?" class="full-width">
+            <input type="text" id="desc" placeholder="เช่น ขายเสื้อผ้า, ค่ากาแฟ" class="full-width">
             <select id="type">
-                <option value="income">รายรับ (ขายได้)</option>
-                <option value="expense">รายจ่าย (ซื้อเข้า)</option>
+                <option value="income">รายรับ (ขายสินค้า)</option>
+                <option value="expense">รายจ่าย (ค่าใช้จ่าย)</option>
             </select>
             <input type="date" id="date">
             <input type="number" id="cost" placeholder="ต้นทุน (฿)">
-            <input type="number" id="price" placeholder="ราคาขาย/จ่ายจริง (฿)">
+            <input type="number" id="price" placeholder="ยอดเงินสุทธิ (฿)">
         </div>
-        <button onclick="addItem()" class="btn-main">บันทึกความจึ้ง 💎</button>
+        <button onclick="addItem()" class="btn-main">บันทึกข้อมูล 💎</button>
     </div>
 
     <div class="section">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 25px;">
-            <h2>📊 กำไรที่แท้จริง</h2>
-            <select id="filterMonth" onchange="calculateSummary()" style="padding: 8px; border-radius: 12px; border: 1px solid #ddd;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 22px;">
+            <h2>📊 สรุปยอดกำไร</h2>
+            <select id="filterMonth" onchange="calculateSummary()" style="padding: 6px; border-radius: 10px; border: 1px solid #eee; font-size: 12px;">
                 <option value="all">ทั้งหมด</option>
                 <option value="0">ม.ค.</option><option value="1">ก.พ.</option><option value="2">มี.ค.</option>
                 <option value="3">เม.ย.</option><option value="4">พ.ค.</option><option value="5">มิ.ย.</option>
@@ -188,23 +194,27 @@ input, select {
             </select>
         </div>
 
-        <div style="max-width: 230px; margin: 0 auto 30px;">
+        <div style="max-width: 210px; margin: 0 auto 25px;">
             <canvas id="profitChart"></canvas>
         </div>
 
-        <div class="res-box res-in"><span>ยอดขายรวม</span><span id="sumIn">0</span></div>
-        <div class="res-box res-cost"><span>ต้นทุนสะสม</span><span id="sumCost">0</span></div>
-        <div class="res-box res-out"><span>รายจ่ายอื่น</span><span id="sumOut">0</span></div>
-        <div class="res-box res-net"><span style="font-weight: 300;">กำไรสุทธิ</span><b id="sumNet">0</b></div>
+        <div class="res-box res-in"><span>ยอดขายรวม</span><span id="sumIn">0 ฿</span></div>
+        <div class="res-box res-cost"><span>ต้นทุนสินค้า</span><span id="sumCost">0 ฿</span></div>
+        <div class="res-box res-out"><span>รายจ่ายจิปาถะ</span><span id="sumOut">0 ฿</span></div>
+        
+        <div class="res-box res-net">
+            <span>กำไรสุทธิที่ได้</span>
+            <span id="sumNet">0 ฿</span>
+        </div>
 
         <div class="spending-detail">
-            <p style="font-size: 15px; font-weight: 500; color: var(--dark-navy); margin-bottom: 12px;">💸 รายจ่ายแยกรายการ</p>
+            <p style="font-size: 14px; font-weight: 500; color: var(--dark-navy); margin-bottom: 10px;">💸 รายจ่ายแยกตามประเภท</p>
             <div id="spendList"></div>
         </div>
     </div>
 
     <div class="section">
-        <h2>📅 ประวัติย้อนหลัง</h2>
+        <h2>📅 ประวัติรายการ</h2>
         <div id="displayList"></div>
     </div>
 
@@ -221,12 +231,12 @@ input, select {
         span.innerText = emojis[Math.floor(Math.random()*emojis.length)];
         span.style.left = Math.random()*100 + 'vw';
         span.style.top = Math.random()*100 + 'vh';
-        span.style.fontSize = Math.random()*15 + 15 + 'px';
+        span.style.fontSize = Math.random()*12 + 15 + 'px';
         span.style.animationDelay = Math.random()*5 + 's';
         bgContainer.appendChild(span);
     }
 
-    let transactions = JSON.parse(localStorage.getItem('sorin_profit_v1')) || [];
+    let transactions = JSON.parse(localStorage.getItem('sorin_profit_v2')) || [];
     let myChart = null;
 
     function addItem() {
@@ -236,10 +246,10 @@ input, select {
         const cost = parseFloat(document.getElementById('cost').value) || 0;
         const price = parseFloat(document.getElementById('price').value) || 0;
 
-        if(!desc || !date || price <= 0) return alert('กรอกข้อมูลให้ครบก่อนนะจ๊ะ ✨');
+        if(!desc || !date || price <= 0) return alert('กรุณากรอกข้อมูลให้ครบก่อนบันทึกนะคะ ✨');
 
         transactions.push({ desc, type, date, cost, price });
-        localStorage.setItem('sorin_profit_v1', JSON.stringify(transactions));
+        localStorage.setItem('sorin_profit_v2', JSON.stringify(transactions));
         
         document.getElementById('desc').value = '';
         document.getElementById('cost').value = '';
@@ -263,15 +273,15 @@ input, select {
             if(isMatch) {
                 if(item.type === 'income') {
                     tIn += item.price;
-                    tCost += item.cost; // ต้นทุนของสิ่งที่ขายได้
+                    tCost += item.cost;
                 } else {
-                    tOtherOut += item.price; // รายจ่ายจิปาถะอื่นๆ
+                    tOtherOut += item.price;
                     expenseMap[item.desc] = (expenseMap[item.desc] || 0) + item.price;
                 }
 
                 listDiv.innerHTML += `
-                    <div style="display:flex; justify-content:space-between; padding: 15px 0; border-bottom: 1px solid rgba(0,0,0,0.03);">
-                        <span><b>${item.desc}</b><br><small style="color:#aaa">ทุน: ${item.cost} | ยอด: ${item.price}</small></span>
+                    <div style="display:flex; justify-content:space-between; padding: 12px 0; border-bottom: 1px solid rgba(0,0,0,0.03);">
+                        <span><b>${item.desc}</b><br><small style="color:#aaa">${item.date} | ทุน: ${item.cost}</small></span>
                         <span style="color:${item.type==='income'?'#00796b':'#e57373'}; font-weight:500;">
                             ${item.type==='income'?'+':'-'}${item.price.toLocaleString()}
                         </span>
@@ -280,19 +290,18 @@ input, select {
         });
 
         Object.entries(expenseMap).sort((a,b) => b[1] - a[1]).slice(0, 5).forEach(([name, val]) => {
-            spendDiv.innerHTML += `<div class="spending-item"><span>${name}</span><b>-${val.toLocaleString()}</b></div>`;
+            spendDiv.innerHTML += `<div class="spending-item"><span>${name}</span><b>-${val.toLocaleString()} ฿</b></div>`;
         });
 
         document.getElementById('sumIn').innerText = tIn.toLocaleString() + ' ฿';
         document.getElementById('sumCost').innerText = tCost.toLocaleString() + ' ฿';
         document.getElementById('sumOut').innerText = tOtherOut.toLocaleString() + ' ฿';
         
-        // สูตร: ราคาขาย - (ต้นทุนสินค้า + รายจ่ายอื่น)
         const net = tIn - (tCost + tOtherOut);
         document.getElementById('sumNet').innerText = net.toLocaleString() + ' ฿';
         
         updateChart(tIn, tCost, tOtherOut);
-        if(!listDiv.innerHTML) listDiv.innerHTML = '<p style="text-align:center; padding:20px; opacity:0.3;">ยังไม่มีข้อมูลจ้ะ</p>';
+        if(!listDiv.innerHTML) listDiv.innerHTML = '<p style="text-align:center; padding:20px; opacity:0.3; font-size:12px;">ยังไม่มีข้อมูลจ้ะ</p>';
     }
 
     function updateChart(inc, cst, out) {
@@ -301,13 +310,13 @@ input, select {
         myChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: ['ยอดขาย', 'ต้นทุนสินค้า', 'รายจ่ายอื่น'],
+                labels: ['ยอดขาย', 'ต้นทุน', 'จ่ายอื่น'],
                 datasets: [{
                     data: [inc, cst, out],
                     backgroundColor: ['#81e6e2', '#ffcc80', '#f28d8d'],
-                    borderWidth: 6,
+                    borderWidth: 5,
                     borderColor: 'rgba(255,255,255,0.6)',
-                    hoverOffset: 12
+                    hoverOffset: 10
                 }]
             },
             options: { cutout: '75%', plugins: { legend: { display: false } } }
