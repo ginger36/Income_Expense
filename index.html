@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="th">
 <head>
 <meta charset="UTF-8">
@@ -14,7 +14,8 @@
     --navy: #004080;
     --red: #e63946;
     --white: #ffffff;
-    --glass: rgba(255, 255, 255, 0.92);
+    --glass: rgba(255, 255, 255, 0.95);
+    --bg-gradient: linear-gradient(135deg, #d4f3ef 0%, #e0eafc 50%, #f7dada 100%);
 }
 
 *{margin: 0; padding: 0; box-sizing: border-box; font-family: 'Mitr', sans-serif;}
@@ -25,7 +26,7 @@ body {
     justify-content: center;
     align-items: flex-start;
     overflow-x: hidden;
-    background: linear-gradient(-45deg, #e6fffa, #fdfbfb, #ebf8ff, #fff5f5);
+    background: var(--bg-gradient);
     background-size: 400% 400%;
     animation: gradientBG 15s ease infinite;
     position: relative;
@@ -37,20 +38,19 @@ body {
     100% { background-position: 0% 50%; }
 }
 
-/* --- เพิ่มอิโมจิพื้นหลังเคลื่อนไหว --- */
+/* เพิ่มความชัดให้อิโมจิ */
 .bg-emoji {
     position: fixed;
-    font-size: 24px;
+    font-size: 28px;
     z-index: -1;
-    opacity: 0.5;
+    opacity: 0.6;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
     animation: floatEmoji 10s linear infinite;
 }
 
 @keyframes floatEmoji {
-    0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
-    10% { opacity: 0.5; }
-    90% { opacity: 0.5; }
-    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+    0% { transform: translateY(110vh) rotate(0deg); }
+    100% { transform: translateY(-10vh) rotate(360deg); }
 }
 
 .container {
@@ -61,107 +61,94 @@ body {
     z-index: 1;
 }
 
-.header-section { margin-bottom: 30px; }
-
-/* --- โลโก้แบบมีแสงออร่า --- */
+/* โลโก้มีเงาสีเข้มตัด */
 .logo {
-    width: 120px; height: 120px;
+    width: 125px; height: 125px;
     border-radius: 50%;
     overflow: hidden;
     margin: 0 auto 15px;
-    border: 4px solid var(--white);
-    position: relative;
-    box-shadow: 0 0 20px rgba(10, 186, 181, 0.6), 0 0 40px rgba(10, 186, 181, 0.3);
+    border: 5px solid var(--white);
+    box-shadow: 0 10px 25px rgba(0, 64, 128, 0.2), 0 0 40px rgba(10, 186, 181, 0.4);
     animation: logoGlow 3s ease-in-out infinite alternate;
 }
 
 @keyframes logoGlow {
-    from { box-shadow: 0 0 20px rgba(10, 186, 181, 0.5); }
-    to { box-shadow: 0 0 40px rgba(10, 186, 181, 0.9), 0 0 60px rgba(0, 64, 128, 0.4); }
+    from { transform: scale(1); box-shadow: 0 10px 25px rgba(0, 64, 128, 0.2); }
+    to { transform: scale(1.05); box-shadow: 0 15px 35px rgba(0, 64, 128, 0.3), 0 0 50px rgba(10, 186, 181, 0.6); }
 }
 
 .logo img { width: 100%; height: 100%; object-fit: cover; }
 
-h1 { color: var(--navy); font-size: 32px; margin-bottom: 5px; }
-.subtitle { color: var(--tiffany); font-size: 15px; margin-bottom: 20px; font-weight: 400; }
+h1 { color: var(--navy); font-size: 36px; text-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+.subtitle { color: #555; background: rgba(255,255,255,0.5); display: inline-block; padding: 2px 15px; border-radius: 20px; font-size: 14px; margin-bottom: 20px; }
 
-/* --- ปุ่มอัปเดตแบบแสงกระพริบ --- */
+/* ปุ่มอัปเดต - ปรับให้เข้มและเด่นกว่าเดิม */
 .btn-update-glow {
-    background: var(--white);
-    border: 2px solid var(--tiffany);
-    color: var(--navy);
-    position: relative;
-    overflow: hidden;
+    background: var(--navy) !important;
+    color: var(--white) !important;
+    border: none !important;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(0, 64, 128, 0.4);
     animation: pulseUpdate 2s infinite;
 }
 
 @keyframes pulseUpdate {
-    0% { box-shadow: 0 0 0 0px rgba(10, 186, 181, 0.4); }
-    70% { box-shadow: 0 0 0 15px rgba(10, 186, 181, 0); }
-    100% { box-shadow: 0 0 0 0px rgba(10, 186, 181, 0); }
+    0% { transform: scale(1); box-shadow: 0 4px 15px rgba(0, 64, 128, 0.4); }
+    50% { transform: scale(1.02); box-shadow: 0 4px 25px rgba(10, 186, 181, 0.6); }
+    100% { transform: scale(1); box-shadow: 0 4px 15px rgba(0, 64, 128, 0.4); }
 }
 
+/* กล่องเนื้อหา - ลดความขาวจ้า เพิ่มความนุ่ม */
 .section {
     background: var(--glass);
-    border-radius: 28px;
+    border-radius: 30px;
     padding: 25px;
     margin-bottom: 25px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-    border: 1px solid rgba(255,255,255,0.8);
-    backdrop-filter: blur(10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+    border: 1px solid rgba(255,255,255,1);
 }
 
-h2 { color: var(--navy); font-size: 18px; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+h2 { color: var(--navy); font-size: 20px; border-bottom: 2px solid #eee; padding-bottom: 10px; margin-bottom: 20px; }
 
-.input-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-}
-.full-width { grid-column: span 2; }
+/* Input - เพิ่มขอบสีเทาอ่อนเพื่อให้เห็นช่องชัดขึ้น */
 input, select {
-    width: 100%;
-    padding: 14px;
-    border-radius: 15px;
-    border: 1.5px solid #eee;
-    background: #fff;
-    font-size: 14px;
+    border: 2px solid #e0e0e0 !important;
+    background: #f9f9f9 !important;
+}
+input:focus { border-color: var(--tiffany) !important; background: #fff !important; }
+
+/* ปุ่มบันทึก - Gradient */
+.btn-main {
+    background: linear-gradient(to right, var(--tiffany), var(--navy));
+    color: white;
+    box-shadow: 0 5px 15px rgba(0, 64, 128, 0.2);
+}
+.btn-main:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+.stat-box {
+    background: #f0f7f7;
+    border: 2px solid var(--white);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.03);
 }
 
-.btn {
-    width: 100%;
-    padding: 15px;
-    border-radius: 18px;
-    font-weight: 500;
-    cursor: pointer;
-    border: none;
-    font-size: 16px;
-    transition: 0.3s;
-}
-.btn-main { background: var(--tiffany); color: white; margin-top: 15px; }
-
-.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-.stat-box { background: white; padding: 15px; border-radius: 20px; }
-
+/* แถบสรุปผลที่ดู "แน่น" ขึ้น */
 .result-row {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 15px 20px; border-radius: 18px; margin-bottom: 10px;
+    border: 2px solid var(--white);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
-.row-income { background: #e6fffa; color: #2d6a4f; }
-.row-expense { background: #fff5f5; color: var(--red); }
-.row-profit { background: var(--navy); color: white; margin-top: 15px; }
+.row-income { background: #dff9f6; color: #00695c; }
+.row-expense { background: #ffebee; color: #c62828; }
+.row-profit { background: linear-gradient(to right, var(--navy), #1a237e); color: white; }
 
-#displayList { max-height: 300px; overflow-y: auto; margin-top: 15px; }
 .item-card {
-    background: white; padding: 15px; border-radius: 18px; margin-bottom: 10px;
-    display: flex; justify-content: space-between; align-items: center; text-align: left;
+    background: #fdfdfd;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
 }
 
-.chart-container { margin: 20px auto; max-width: 250px; }
-.footer-text { color: var(--navy); opacity: 0.5; font-size: 12px; margin-top: 30px; }
+.footer-text { color: var(--navy); font-weight: 500; margin-top: 30px; }
 </style>
 </head>
-
 <body>
 
 <div id="emoji-container"></div>
@@ -173,51 +160,60 @@ input, select {
             <img src="att.0s6x5y6gyBz3Q27JNKonjuezkpDX0Fr1zY9NUqwywz4.jpeg" alt="nongsorin logo">
         </div>
         <h1>nongsorin</h1>
-        <p class="subtitle">บันทึกกำไรดีๆ มีความสุขทุกการใช้จ่าย 🌸</p>
+        <p class="subtitle">จัดการกำไรให้ปัง สไตล์คุณ Ⓜ️🦋</p>
         
         <div class="stats-grid">
             <div class="stat-box">
-                <span style="font-size:12px; color:#888;">กำไรเดือนนี้</span><br>
-                <span id="badge-month" style="font-weight:600; color:var(--navy);">0</span>
+                <span style="font-size:12px; color:#555;">กำไรเดือนนี้</span><br>
+                <span id="badge-month" style="font-weight:600; color:var(--navy); font-size: 18px;">0</span>
             </div>
             <div class="stat-box">
-                <span style="font-size:12px; color:#888;">รวมทั้งปี 2026</span><br>
-                <span id="badge-year" style="font-weight:600; color:var(--tiffany);">0</span>
+                <span style="font-size:12px; color:#555;">รวมทั้งปี 2026</span><br>
+                <span id="badge-year" style="font-weight:600; color:var(--tiffany); font-size: 18px;">0</span>
             </div>
         </div>
         
-        <button onclick="calculateSummary()" class="btn btn-update-glow">🔄 อัปเดตข้อมูลสรุปยอดเงิน</button>
+        <button onclick="calculateSummary()" class="btn btn-update-glow" style="margin-top:15px; padding: 12px;">🔄 อัปเดตยอดเงินทันที</button>
     </div>
 
     <div class="section">
         <h2>📝 เพิ่มรายการใหม่</h2>
         <div class="input-grid">
-            <input type="text" id="desc" placeholder="ชื่อรายการ" class="full-width">
+            <input type="text" id="desc" placeholder="รายการนี้คืออะไร?" class="full-width">
             <select id="type">
                 <option value="income">➕ รายรับ</option>
                 <option value="expense">➖ รายจ่าย</option>
             </select>
             <input type="date" id="date">
-            <input type="number" id="cost" placeholder="ต้นทุน">
-            <input type="number" id="price" placeholder="ราคาขาย">
+            <input type="number" id="cost" placeholder="ต้นทุน (บาท)">
+            <input type="number" id="price" placeholder="ราคาขาย (บาท)">
         </div>
-        <button onclick="addItem()" class="btn btn-main">บันทึกข้อมูล ✨</button>
+        <button onclick="addItem()" class="btn btn-main" style="margin-top: 20px;">บันทึกลงสมุด ✨</button>
     </div>
 
     <div class="section">
-        <h2>📊 สัดส่วนทางการเงิน</h2>
+        <h2>📊 สรุปผลลัพธ์</h2>
         <div class="chart-container">
             <canvas id="profitChart"></canvas>
         </div>
-        <div class="result-row row-income"><span>รายรับรวม</span><span id="sumIn">0 ฿</span></div>
-        <div class="result-row row-expense"><span>รายจ่ายรวม</span><span id="sumOut">0 ฿</span></div>
-        <div class="result-row row-profit"><span>กำไรสุทธิ</span><span id="sumNet" style="font-size:20px;">0 ฿</span></div>
+        <div class="result-row row-income">
+            <span>รายรับรวม</span>
+            <span id="sumIn" style="font-weight: 600;">0 ฿</span>
+        </div>
+        <div class="result-row row-expense">
+            <span>รายจ่ายรวม</span>
+            <span id="sumOut" style="font-weight: 600;">0 ฿</span>
+        </div>
+        <div class="result-row row-profit">
+            <span>กำไรสุทธิ</span>
+            <span id="sumNet" style="font-weight: 600; font-size:22px;">0 ฿</span>
+        </div>
     </div>
 
     <div class="section">
-        <div style="display:flex; justify-content:space-between; align-items:center;">
-            <h2 style="margin:0;">📅 ประวัติรายการ</h2>
-            <select id="filterMonth" onchange="calculateSummary()" style="width:auto;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 15px;">
+            <h2 style="margin:0; border:none; padding:0;">📅 ประวัติ</h2>
+            <select id="filterMonth" onchange="calculateSummary()" style="width:auto; height:35px; padding: 0 10px;">
                 <option value="all">ทั้งหมด</option>
                 <option value="0">ม.ค.</option><option value="1">ก.พ.</option>
                 <option value="2">มี.ค.</option><option value="3">เม.ย.</option>
@@ -228,27 +224,26 @@ input, select {
             </select>
         </div>
         <div id="displayList"></div>
-        <button onclick="clearData()" style="background:none; border:none; color:#bbb; font-size:11px; margin-top:20px; cursor:pointer;">ล้างข้อมูลทั้งหมด</button>
+        <button onclick="clearData()" style="background:none; border:none; color:var(--red); font-size:11px; margin-top:25px; cursor:pointer; opacity: 0.6;">🗑️ ล้างข้อมูลทั้งหมด</button>
     </div>
 
-    <p class="footer-text">© 2026 nongsorin - Digital Profit Journal</p>
+    <p class="footer-text">nongsorin • 2026</p>
 </div>
 
 <script>
-    // สร้างอิโมจิลอยหลังพื้นหลัง
+    // สุ่มอิโมจิพื้นหลัง
     const emojis = ['Ⓜ️', '🦋', '🪼', '🐳', '🐠'];
     const container = document.getElementById('emoji-container');
-    
     function createEmoji() {
         const emoji = document.createElement('div');
         emoji.className = 'bg-emoji';
         emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
         emoji.style.left = Math.random() * 100 + 'vw';
-        emoji.style.animationDuration = (Math.random() * 5 + 5) + 's';
+        emoji.style.animationDuration = (Math.random() * 5 + 7) + 's';
         container.appendChild(emoji);
         setTimeout(() => emoji.remove(), 10000);
     }
-    setInterval(createEmoji, 1500);
+    setInterval(createEmoji, 2000);
 
     let transactions = JSON.parse(localStorage.getItem('nongsorin_biz_data')) || [];
     let myChart = null;
@@ -260,7 +255,7 @@ input, select {
         const cost = parseFloat(document.getElementById('cost').value) || 0;
         const price = parseFloat(document.getElementById('price').value) || 0;
 
-        if(!desc || !date) { alert('กรุณากรอกข้อมูลให้ครบถ้วนนะคะ 🥺'); return; }
+        if(!desc || !date) { alert('ใส่ชื่อรายการและวันที่ด้วยนะจ๊ะ 🌸'); return; }
 
         transactions.push({ desc, type, date, cost, price });
         localStorage.setItem('nongsorin_biz_data', JSON.stringify(transactions));
@@ -291,9 +286,9 @@ input, select {
                 else tOut += item.cost;
 
                 listDiv.innerHTML += `
-                    <div class="item-card" style="border-left:5px solid ${item.type==='income'?'#0abab5':'#e63946'}">
-                        <div><b>${item.desc}</b><br><small>${d.toLocaleDateString('th-TH')}</small></div>
-                        <div style="text-align:right"><b style="color:${profit>=0?'#0abab5':'#e63946'}">${profit.toLocaleString()} ฿</b></div>
+                    <div class="item-card" style="border-left:6px solid ${item.type==='income'?'var(--tiffany)':'var(--red)'}">
+                        <div><b style="color:var(--navy)">${item.desc}</b><br><small style="color:#888">${d.toLocaleDateString('th-TH')}</small></div>
+                        <div style="text-align:right"><b style="color:${profit>=0?'#00897b':'#d32f2f'}; font-size:16px;">${profit.toLocaleString()} ฿</b></div>
                     </div>`;
             }
         });
@@ -302,8 +297,8 @@ input, select {
         document.getElementById('sumOut').innerText = tOut.toLocaleString() + ' ฿';
         const net = tIn - tOut;
         document.getElementById('sumNet').innerText = net.toLocaleString() + ' ฿';
-        document.getElementById('badge-month').innerText = net.toLocaleString() + ' ฿';
-        document.getElementById('badge-year').innerText = yNet.toLocaleString() + ' ฿';
+        document.getElementById('badge-month').innerText = net.toLocaleString();
+        document.getElementById('badge-year').innerText = yNet.toLocaleString();
         updateChart(tIn, tOut, net);
     }
 
@@ -317,14 +312,19 @@ input, select {
                 datasets: [{
                     data: [inc, out, net > 0 ? net : 0],
                     backgroundColor: ['#0abab5', '#e63946', '#004080'],
-                    borderWidth: 0
+                    hoverOffset: 10,
+                    borderWidth: 3,
+                    borderColor: '#ffffff'
                 }]
             },
-            options: { plugins: { legend: { display: false } }, cutout: '70%' }
+            options: { 
+                plugins: { legend: { position: 'bottom', labels: { font: { family: 'Mitr' } } } },
+                cutout: '65%' 
+            }
         });
     }
 
-    function clearData() { if(confirm('ลบข้อมูลทั้งหมด?')) { transactions = []; localStorage.clear(); calculateSummary(); } }
+    function clearData() { if(confirm('จะลบข้อมูลทั้งหมดจริงๆ หรอ? ข้อมูลหายหมดเลยนะ!')) { transactions = []; localStorage.clear(); calculateSummary(); } }
     document.getElementById('date').valueAsDate = new Date();
     calculateSummary();
 </script>
