@@ -3,19 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>nongsorin - Harmonious Tracker 📈</title>
+<title>nongsorin - Elegant Tracker 📈</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 :root {
-    /* ปรับเฉดสีให้มีความนวลและน้ำหนักสีใกล้เคียงกัน */
-    --tiffany: #81e6e2;  /* Tiffany แบบนุ่มนวล */
-    --navy: #5c85d6;     /* น้ำเงิน Denim ที่ดูไม่หนักเกินไป */
-    --red: #f28d8d;      /* แดงกุหลาบอ่อนๆ */
+    --tiffany: #81e6e2;  
+    --navy: #5c85d6;     
+    --red: #f28d8d;      
     --text: #4a5568;
-    --bg-white: rgba(255, 255, 255, 0.8);
+    --bg-white: rgba(255, 255, 255, 0.85);
+    /* สีสำหรับแสงออร่า */
+    --glow-color: rgba(129, 230, 226, 0.6); 
 }
 
 *{margin: 0; padding: 0; box-sizing: border-box; font-family: 'Mitr', sans-serif;}
@@ -24,46 +25,93 @@ body {
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    /* พื้นหลังเบนสีแบบกลมกลืนเป็นเนื้อเดียว */
     background: linear-gradient(135deg, #fdfcfb 0%, #e2ebf0 50%, #fef9e7 100%);
     background-attachment: fixed;
     color: var(--text);
+    position: relative;
+    overflow-x: hidden; /* กันอิโมจิลอยออกข้าง */
 }
 
-/* อิโมจิแบบโปร่งแสงเพื่อให้ดูไม่กระโดด */
-.bg-emoji {
+/* --- สไตล์สำหรับอิโมจิพื้นหลัง --- */
+#emoji-container {
     position: fixed;
-    z-index: -1;
-    opacity: 0.2;
-    filter: grayscale(30%);
-    animation: floatEmoji 15s linear infinite;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* อยู่หลังเนื้อหา */
+    pointer-events: none; /* กดทะลุได้ */
+}
+
+.floating-emoji {
+    position: absolute;
+    opacity: 0;
+    animation: floatEmoji linear infinite;
 }
 
 @keyframes floatEmoji {
-    0% { transform: translateY(110vh) rotate(0deg); }
-    100% { transform: translateY(-10vh) rotate(360deg); }
+    0% {
+        transform: translateY(110vh) rotate(0deg) scale(0.8);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.5;
+    }
+    90% {
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateY(-20vh) rotate(360deg) scale(1.2);
+        opacity: 0;
+    }
 }
+/* ---------------------------------- */
 
 .container {
     max-width: 500px;
     width: 92%;
     padding: 40px 0 100px;
+    position: relative;
+    z-index: 1; /* อยู่เหนืออิโมจิ */
 }
 
 .header-section { margin-bottom: 30px; text-align: center; }
+
+/* --- สไตล์โลโก้มีแสง --- */
 .logo {
-    width: 95px; height: 95px;
+    width: 100px; height: 100px;
     border-radius: 50%;
-    margin: 0 auto 15px;
-    border: 5px solid #fff;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+    margin: 0 auto 20px;
+    border: 4px solid #fff;
+    background: #fff;
+    position: relative;
+    /* แสงออร่านิ่งๆ */
+    box-shadow: 0 0 20px 5px var(--glow-color);
+    /* เพิ่มอนิเมชั่นแสงกะพริบเบาๆ */
+    animation: logoGlow 3s ease-in-out infinite alternate;
 }
-.logo img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+
+@keyframes logoGlow {
+    from {
+        box-shadow: 0 0 15px 3px var(--glow-color);
+    }
+    to {
+        box-shadow: 0 0 30px 8px var(--glow-color), 0 0 50px 15px rgba(92, 133, 214, 0.3);
+    }
+}
+
+.logo img { 
+    width: 100%; height: 100%; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    position: relative;
+    z-index: 2; /* อยู่เหนือแสง */
+}
+/* -------------------- */
 
 h1 { font-weight: 500; font-size: 30px; color: var(--navy); opacity: 0.9; }
 .subtitle { font-weight: 300; font-size: 14px; color: #718096; }
 
-/* กล่อง UI แบบนุ่มนวล */
 .section {
     background: var(--bg-white);
     backdrop-filter: blur(10px);
@@ -77,7 +125,6 @@ h1 { font-weight: 500; font-size: 30px; color: var(--navy); opacity: 0.9; }
 
 h2 { font-size: 17px; font-weight: 500; margin-bottom: 20px; color: var(--navy); display: flex; align-items: center; gap: 10px; }
 
-/* Input สไตล์ละมุน */
 .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .full-width { grid-column: span 2; }
 
@@ -93,7 +140,6 @@ input, select {
 }
 input:focus { border-color: var(--tiffany); background: #fff; }
 
-/* ปุ่มที่สีกลมกลืน */
 .btn-main {
     width: 100%;
     background: linear-gradient(135deg, var(--navy), var(--tiffany));
@@ -110,7 +156,6 @@ input:focus { border-color: var(--tiffany); background: #fff; }
 }
 .btn-main:hover { opacity: 0.9; transform: translateY(-1px); }
 
-/* สถิติแบบคุมโทน */
 .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
 .stat-box {
     background: #fff;
@@ -126,11 +171,10 @@ input:focus { border-color: var(--tiffany); background: #fff; }
     display: flex; justify-content: space-between; padding: 15px 20px;
     border-radius: 20px; margin-bottom: 12px; font-size: 14px;
 }
-.row-income { background: #f0fff4; color: #48bb78; } /* เขียวมินต์อ่อนเข้ากับ Tiffany */
-.row-expense { background: #fff5f5; color: #f56565; } /* แดงระเรื่อ */
+.row-income { background: #f0fff4; color: #48bb78; } 
+.row-expense { background: #fff5f5; color: #f56565; } 
 .row-profit { background: var(--navy); color: #fff; box-shadow: 0 10px 20px rgba(92, 133, 214, 0.15); }
 
-/* ประวัติรายการ */
 .item-card {
     display: flex; justify-content: space-between; align-items: center;
     padding: 16px 5px; border-bottom: 1px solid #edf2f7;
@@ -221,18 +265,48 @@ input:focus { border-color: var(--tiffany); background: #fff; }
 </div>
 
 <script>
-    const emojis = ['🌸', '🐳', '✨', '💧'];
-    function createEmoji() {
-        const e = document.createElement('div');
-        e.className = 'bg-emoji';
-        e.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-        e.style.left = Math.random() * 100 + 'vw';
-        e.style.fontSize = (Math.random() * 20 + 15) + 'px';
-        e.style.animationDuration = (Math.random() * 10 + 10) + 's';
-        document.getElementById('emoji-container').appendChild(e);
-        setTimeout(() => e.remove(), 15000);
+    // --- ส่วนจัดการอิโมจิลอยละล่อง ---
+    const emojiContainer = document.getElementById('emoji-container');
+    // รายลากอิโมจิที่ต้องการให้ลอย
+    const emojis = ['🌸', '🐳', '✨', '💧', '💰', '📈', '💖', '🌟']; 
+
+    function createFloatingEmoji() {
+        const emojiEl = document.createElement('div');
+        emojiEl.className = 'floating-emoji';
+        
+        // สุ่มเลือกอิโมจิ
+        emojiEl.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+        
+        // สุ่มตำแหน่งแนวนอน (0% - 100%)
+        emojiEl.style.left = Math.random() * 100 + 'vw';
+        
+        // สุ่มขนาด (15px - 35px)
+        emojiEl.style.fontSize = (Math.random() * 20 + 15) + 'px';
+        
+        // สุ่มระยะเวลาอนิเมชั่น (8s - 15s) เพื่อให้ลอยเร็วช้าต่างกัน
+        emojiEl.style.animationDuration = (Math.random() * 7 + 8) + 's';
+        
+        // สุ่ม delay (0s - 5s) เพื่อไม่ให้ขึ้นมาพร้อมกันหมดตอนโหลดเสร็จ
+        emojiEl.style.animationDelay = (Math.random() * 5) + 's';
+
+        emojiContainer.appendChild(emojiEl);
+
+        // ลบ element ทิ้งเมื่อจบอนิเมชั่นเพื่อไม่ให้หนักเครื่อง
+        // ใช้เวลามากที่สุดของ animationDuration + animationDelay
+        setTimeout(() => {
+            emojiEl.remove();
+        }, 20000); 
     }
-    setInterval(createEmoji, 4000);
+
+    // สร้างอิโมจิเริ่มต้น 15 ตัว
+    for(let i = 0; i < 15; i++) {
+        createFloatingEmoji();
+    }
+
+    // สร้างอิโมจิใหม่เรื่อยๆ ทุกๆ 1.5 วินาที
+    setInterval(createFloatingEmoji, 1500);
+    // ----------------------------------
+
 
     let transactions = JSON.parse(localStorage.getItem('harmonious_tracker_v1')) || [];
     let myChart = null;
