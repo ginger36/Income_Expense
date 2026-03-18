@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>nongsorin - Pro Tracker 📈</title>
+<title>nongsorin - Ultra Tracker ✨</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -14,8 +14,8 @@
     --navy: #5c85d6;     
     --red: #f28d8d;      
     --dark-navy: #3d5a94;
-    --text: #2d3748;
-    --section-bg: rgba(255, 255, 255, 0.95);
+    --glass: rgba(255, 255, 255, 0.8);
+    --grad-main: linear-gradient(135deg, var(--tiffany), var(--navy));
 }
 
 *{margin: 0; padding: 0; box-sizing: border-box; font-family: 'Mitr', sans-serif;}
@@ -24,186 +24,214 @@ body {
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    /* เปลี่ยนพื้นหลังให้มีสีสันมากขึ้น */
-    background: linear-gradient(135deg, #e0f7f6 0%, #e2ebf0 50%, #f9e2e2 100%);
+    background: linear-gradient(135deg, #e0f2f1 0%, #e8eaf6 50%, #fce4ec 100%);
     background-attachment: fixed;
-    color: var(--text);
+    color: #333;
+    overflow-x: hidden;
 }
 
-.container { max-width: 500px; width: 92%; padding: 40px 0 100px; }
+/* --- อิโมจิพื้นหลังดุ๊กดิ๊ก --- */
+#bg-emojis {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1; pointer-events: none;
+}
+.float-bg {
+    position: absolute;
+    opacity: 0.3;
+    animation: moveAround linear infinite;
+}
+@keyframes moveAround {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(100vw, -100vh) rotate(360deg); }
+}
 
-/* --- ส่วนโลโก้และอิโมจิรอบๆ --- */
-.header-section { margin-bottom: 40px; text-align: center; position: relative; }
-.logo-area {
+.container { max-width: 500px; width: 92%; padding: 40px 0 100px; position: relative; z-index: 1; }
+
+/* --- ส่วนโลโก้ No-Border + แสงฟุ้ง --- */
+.header-section { margin-bottom: 50px; text-align: center; position: relative; }
+.logo-container {
     position: relative;
-    width: 220px;
-    height: 220px;
+    width: 200px; height: 200px;
     margin: 0 auto;
 }
-.logo {
-    width: 100px; height: 100px;
+.logo-glow {
+    width: 110px; height: 110px;
     border-radius: 50%;
-    border: 4px solid #fff;
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    z-index: 10;
+    /* แสงออร่าแทนขอบ */
+    box-shadow: 0 0 40px 10px var(--tiffany), 0 0 70px 20px rgba(92, 133, 214, 0.4);
+    background: #fff;
+    overflow: hidden;
+    z-index: 5;
 }
-.logo img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+.logo-glow img { width: 100%; height: 100%; object-fit: cover; }
 
 .orbit {
     position: absolute;
     font-size: 28px;
-    animation: floating 3s ease-in-out infinite alternate;
+    z-index: 6;
+    animation: orbitFloat 4s ease-in-out infinite alternate;
 }
-/* เว้นระยะห่างอิโมจิออกไปรอบๆ */
-.e1 { top: 10%; left: 10%; animation-delay: 0s; }
-.e2 { top: 10%; right: 10%; animation-delay: 0.5s; }
-.e3 { bottom: 15%; left: 5%; animation-delay: 1s; }
-.e4 { bottom: 15%; right: 5%; animation-delay: 1.5s; }
+@keyframes orbitFloat { from { transform: translateY(0); } to { transform: translateY(-20px); } }
 
-@keyframes floating { from { transform: translateY(0); } to { transform: translateY(-15px); } }
+.e1 { top: 0; left: 0; }
+.e2 { top: 0; right: 0; animation-delay: 0.5s; }
+.e3 { bottom: 20px; left: -10px; animation-delay: 1s; }
+.e4 { bottom: 20px; right: -10px; animation-delay: 1.5s; }
 
-/* --- บล็อกดีไซน์ใหม่ --- */
+/* --- บล็อกไล่สี & Glassmorphism --- */
 .section {
-    background: var(--section-bg);
-    border-radius: 30px;
-    padding: 25px;
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border-radius: 35px;
+    padding: 28px;
     margin-bottom: 25px;
-    box-shadow: 0 15px 35px rgba(92, 133, 214, 0.15);
-    border: 2px solid transparent;
-    background-clip: padding-box;
-    position: relative;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.05);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transition: 0.3s;
 }
+.section:hover { transform: scale(1.02); }
 
-/* เพิ่มขอบสีตามคอนเซปต์ */
-.section.input-box { border-color: var(--tiffany); }
-.section.chart-box { border-color: var(--navy); }
-.section.list-box { border-color: var(--red); }
+h2 { font-size: 19px; color: var(--dark-navy); margin-bottom: 22px; display: flex; align-items: center; gap: 10px; }
 
-h2 { font-size: 18px; color: var(--dark-navy); margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
-
-.input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 .full-width { grid-column: span 2; }
 
 input, select {
-    background: #f7fafc;
-    border: 2px solid #edf2f7;
-    padding: 12px;
-    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1.5px solid #eee;
+    padding: 14px;
+    border-radius: 18px;
     outline: none;
     font-size: 14px;
+    transition: 0.3s;
 }
-input:focus { border-color: var(--navy); }
+input:focus { border-color: var(--tiffany); box-shadow: 0 0 15px rgba(129, 230, 226, 0.3); }
 
+/* ปุ่มกดแบบจึ้งไล่สี */
 .btn-main {
     width: 100%;
-    background: linear-gradient(135deg, var(--navy), var(--dark-navy));
-    color: #fff; border: none; padding: 16px; border-radius: 20px;
-    font-size: 16px; margin-top: 15px; cursor: pointer;
-    box-shadow: 0 8px 15px rgba(92, 133, 214, 0.3);
+    background: linear-gradient(45deg, var(--tiffany), var(--navy), var(--dark-navy));
+    background-size: 200% auto;
+    color: #fff; border: none; padding: 18px; border-radius: 22px;
+    font-size: 17px; font-weight: 500; margin-top: 15px; cursor: pointer;
+    box-shadow: 0 10px 25px rgba(92, 133, 214, 0.3);
+    transition: 0.5s;
 }
+.btn-main:hover { background-position: right center; transform: translateY(-3px); }
 
-/* --- สรุปยอดเงิน --- */
-.summary-card {
-    display: flex; flex-direction: column; gap: 10px; margin-top: 20px;
-}
+/* --- สรุปยอดเงินแบบการ์ดหรู --- */
 .res-box {
-    display: flex; justify-content: space-between; padding: 15px 20px;
-    border-radius: 18px; font-weight: 500;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 25px; border-radius: 22px; margin-bottom: 12px;
+    font-weight: 500; transition: 0.3s;
 }
-.res-in { background: var(--tiffany); color: #000; }
-.res-out { background: var(--red); color: #fff; }
-.res-net { background: var(--navy); color: #fff; font-size: 20px; }
+.res-in { background: linear-gradient(90deg, #e0f2f1, var(--tiffany)); color: #00796b; border-right: 6px solid #4db6ac; }
+.res-out { background: linear-gradient(90deg, #ffebee, var(--red)); color: #c62828; border-right: 6px solid #e57373; }
+.res-net { background: var(--grad-main); color: #fff; font-size: 22px; box-shadow: 0 10px 20px rgba(92, 133, 214, 0.2); }
 
-/* --- รายละเอียดการใช้จ่าย (Spending Breakdown) --- */
 .spending-detail {
-    margin-top: 20px;
-    background: #fcfcfc;
-    border-radius: 20px;
-    padding: 15px;
+    margin-top: 25px; background: rgba(255,255,255,0.4);
+    border-radius: 25px; padding: 20px;
 }
 .spending-item {
     display: flex; justify-content: space-between;
-    font-size: 13px; padding: 8px 0;
-    border-bottom: 1px dashed #eee;
+    padding: 12px 5px; border-bottom: 1px solid rgba(0,0,0,0.05);
 }
-.spending-item:last-child { border: none; }
 
-.footer-text { text-align: center; font-size: 11px; color: #a0aec0; margin-top: 40px; }
+.footer-text { text-align: center; font-size: 12px; color: #999; margin-top: 50px; letter-spacing: 1px; }
 </style>
 </head>
 <body>
 
+<div id="bg-emojis"></div>
+
 <div class="container">
     <div class="header-section">
-        <div class="logo-area">
+        <div class="logo-container">
             <span class="orbit e1">🐳</span>
             <span class="orbit e2">🐠</span>
             <span class="orbit e3">🦋</span>
             <span class="orbit e4">🪼</span>
-            <div class="logo">
+            <div class="logo-glow">
                 <img src="att.0s6x5y6gyBz3Q27JNKonjuezkpDX0Fr1zY9NUqwywz4.jpeg" alt="logo">
             </div>
         </div>
-        <h1 style="color: var(--dark-navy); font-size: 32px; margin-top: 10px;">nongsorin</h1>
+        <h1 style="color: var(--dark-navy); font-size: 34px; margin-top: 15px; letter-spacing: -1px;">nongsorin</h1>
+        <p style="opacity: 0.5; font-size: 14px;">The Ultimate Financial Aesthetics ✨</p>
     </div>
 
-    <div class="section input-box">
-        <h2>📝 เพิ่มรายการ</h2>
+    <div class="section">
+        <h2>✨ บันทึกรายการใหม่</h2>
         <div class="input-grid">
-            <input type="text" id="desc" placeholder="เช่น ค่าข้าว, ขายเสื้อผ้า" class="full-width">
+            <input type="text" id="desc" placeholder="รายการนี้คืออะไรคะ?" class="full-width">
             <select id="type">
                 <option value="income">รายรับ (+)</option>
                 <option value="expense">รายจ่าย (-)</option>
             </select>
             <input type="date" id="date">
-            <input type="number" id="cost" placeholder="ต้นทุน (ถ้ามี)">
-            <input type="number" id="price" placeholder="ยอดเงินสุทธิ">
+            <input type="number" id="cost" placeholder="ต้นทุน">
+            <input type="number" id="price" placeholder="ยอดเงิน">
         </div>
-        <button onclick="addItem()" class="btn-main">บันทึกลงสมุด 🌸</button>
+        <button onclick="addItem()" class="btn-main">บันทึกข้อมูลแบบเริดๆ 💎</button>
     </div>
 
-    <div class="section chart-box">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 15px;">
-            <h2>📊 วิเคราะห์กำไร</h2>
-            <select id="filterMonth" onchange="calculateSummary()" style="padding: 5px; border-radius: 10px;">
-                <option value="all">ทั้งหมด</option>
-                <option value="0">ม.ค.</option><option value="1">ก.พ.</option><option value="2">มี.ค.</option>
-                <option value="3">เม.ย.</option><option value="4">พ.ค.</option><option value="5">มิ.ย.</option>
-                <option value="6">ก.ค.</option><option value="7">ส.ค.</option><option value="8">ก.ย.</option>
-                <option value="9">ต.ค.</option><option value="10">พ.ย.</option><option value="11">ธ.ค.</option>
+    <div class="section">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 25px;">
+            <h2>📊 บทวิเคราะห์ประจำเดือน</h2>
+            <select id="filterMonth" onchange="calculateSummary()" style="padding: 8px; border-radius: 12px; background: #fff; border: 1px solid #ddd;">
+                <option value="all">ดูทั้งหมด</option>
+                <option value="0">มกราคม</option><option value="1">กุมภาพันธ์</option><option value="2">มีนาคม</option>
+                <option value="3">เมษายน</option><option value="4">พฤษภาคม</option><option value="5">มิถุนายน</option>
+                <option value="6">กรกฎาคม</option><option value="7">สิงหาคม</option><option value="8">กันยายน</option>
+                <option value="9">ตุลาคม</option><option value="10">พฤศจิกายน</option><option value="11">ธันวาคม</option>
             </select>
         </div>
 
-        <div style="max-width: 220px; margin: 0 auto;">
+        <div style="max-width: 230px; margin: 0 auto 30px;">
             <canvas id="profitChart"></canvas>
         </div>
 
-        <div class="summary-card">
-            <div class="res-box res-in"><span>รายรับ</span><span id="sumIn">0</span></div>
-            <div class="res-box res-out"><span>รายจ่าย</span><span id="sumOut">0</span></div>
-            <div class="res-box res-net"><span>กำไรสุทธิ</span><span id="sumNet">0</span></div>
-        </div>
+        <div class="res-box res-in"><span>ยอดรับรวม</span><span id="sumIn">0</span></div>
+        <div class="res-box res-out"><span>ยอดจ่ายรวม</span><span id="sumOut">0</span></div>
+        <div class="res-box res-net"><span style="font-weight: 300;">กำไรสุทธิ</span><b id="sumNet">0</b></div>
 
         <div class="spending-detail">
-            <p style="font-size: 14px; font-weight: 500; color: var(--navy); margin-bottom: 10px;">💸 รายจ่ายแยกตามรายการ:</p>
-            <div id="spendList">
-                </div>
+            <p style="font-size: 15px; font-weight: 500; color: var(--dark-navy); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+                💸 รายการใช้จ่ายยอดฮิต
+            </p>
+            <div id="spendList"></div>
         </div>
     </div>
 
-    <div class="section list-box">
-        <h2>📅 ประวัติรายการ</h2>
+    <div class="section">
+        <h2>📅 ประวัติที่ผ่านมา</h2>
         <div id="displayList"></div>
     </div>
 
-    <p class="footer-text">CREATED BY NONGSORIN • 2026</p>
+    <p class="footer-text">DESIGNED BY NONGSORIN • 2026</p>
 </div>
 
 <script>
-    let transactions = JSON.parse(localStorage.getItem('sorin_tracker_v4')) || [];
+    // --- สุ่มสร้างอิโมจิพื้นหลัง ---
+    const bgContainer = document.getElementById('bg-emojis');
+    const emojis = ['🌸', '✨', '💎', '🐳', '💧', '🫧'];
+    for(let i=0; i<15; i++) {
+        let span = document.createElement('span');
+        span.className = 'float-bg';
+        span.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+        span.style.left = Math.random()*100 + 'vw';
+        span.style.top = Math.random()*100 + 'vh';
+        span.style.fontSize = Math.random()*20 + 10 + 'px';
+        span.style.animationDuration = Math.random()*10 + 15 + 's';
+        span.style.animationDelay = Math.random()*5 + 's';
+        bgContainer.appendChild(span);
+    }
+
+    let transactions = JSON.parse(localStorage.getItem('sorin_ultra_v1')) || [];
     let myChart = null;
 
     function addItem() {
@@ -213,10 +241,10 @@ input:focus { border-color: var(--navy); }
         const cost = parseFloat(document.getElementById('cost').value) || 0;
         const price = parseFloat(document.getElementById('price').value) || 0;
 
-        if(!desc || !date || price <= 0) return alert('กรุณากรอกข้อมูลให้ครบจ้ะ');
+        if(!desc || !date || price <= 0) return alert('รบกวนกรอกรายละเอียดให้ครบถ้วนก่อนนะคะ ✨');
 
         transactions.push({ desc, type, date, cost, price });
-        localStorage.setItem('sorin_tracker_v4', JSON.stringify(transactions));
+        localStorage.setItem('sorin_ultra_v1', JSON.stringify(transactions));
         
         document.getElementById('desc').value = '';
         document.getElementById('cost').value = '';
@@ -228,12 +256,10 @@ input:focus { border-color: var(--navy); }
         const filter = document.getElementById('filterMonth').value;
         const listDiv = document.getElementById('displayList');
         const spendDiv = document.getElementById('spendList');
-        
-        listDiv.innerHTML = '';
-        spendDiv.innerHTML = '';
+        listDiv.innerHTML = ''; spendDiv.innerHTML = '';
         
         let tIn = 0, tOut = 0;
-        let expenseMap = {}; // สำหรับเก็บยอดรวมรายจ่ายแต่ละชื่อ
+        let expenseMap = {};
 
         [...transactions].sort((a,b) => new Date(b.date) - new Date(a.date)).forEach(item => {
             const d = new Date(item.date);
@@ -245,22 +271,20 @@ input:focus { border-color: var(--navy); }
                 } else {
                     const totalCost = item.price + item.cost;
                     tOut += totalCost;
-                    // รวมยอดใช้จ่ายตามชื่อรายการ
                     expenseMap[item.desc] = (expenseMap[item.desc] || 0) + totalCost;
                 }
 
                 listDiv.innerHTML += `
-                    <div style="display:flex; justify-content:space-between; padding: 10px 0; border-bottom: 1px solid #f0f0f0;">
-                        <span>${item.desc} <br><small>${item.date}</small></span>
-                        <span style="color:${item.type==='income'?'#48bb78':'#f56565'}">
-                            ${item.type==='income'?'+':'-'}${item.price.toLocaleString()}
+                    <div style="display:flex; justify-content:space-between; padding: 15px 0; border-bottom: 1px solid rgba(0,0,0,0.03);">
+                        <span><b>${item.desc}</b><br><small style="color:#aaa">${item.date}</small></span>
+                        <span style="color:${item.type==='income'?'#4db6ac':'#e57373'}; font-weight:500;">
+                            ${item.type==='income'?'+':'-'}${item.price.toLocaleString()} ฿
                         </span>
                     </div>`;
             }
         });
 
-        // แสดงรายการใช้จ่ายแยกย่อย
-        Object.entries(expenseMap).sort((a,b) => b[1] - a[1]).forEach(([name, val]) => {
+        Object.entries(expenseMap).sort((a,b) => b[1] - a[1]).slice(0, 5).forEach(([name, val]) => {
             spendDiv.innerHTML += `
                 <div class="spending-item">
                     <span>${name}</span>
@@ -274,26 +298,25 @@ input:focus { border-color: var(--navy); }
         document.getElementById('sumNet').innerText = net.toLocaleString() + ' ฿';
         
         updateChart(tIn, tOut, net);
-        if(!listDiv.innerHTML) listDiv.innerHTML = '<p style="text-align:center; opacity:0.5;">ไม่มีข้อมูลในเดือนนี้</p>';
-        if(!spendDiv.innerHTML) spendDiv.innerHTML = '<p style="font-size:12px; opacity:0.5;">ไม่มีรายจ่าย</p>';
+        if(!listDiv.innerHTML) listDiv.innerHTML = '<p style="text-align:center; padding:20px; opacity:0.3;">ไม่มีรายการจ้ะ</p>';
     }
 
     function updateChart(inc, out, net) {
         const ctx = document.getElementById('profitChart').getContext('2d');
         if (myChart) myChart.destroy();
-        
         myChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: ['รายรับ', 'รายจ่าย', 'กำไรสุทธิ'],
+                labels: ['รายรับ', 'รายจ่าย', 'กำไร'],
                 datasets: [{
                     data: [inc, out, net > 0 ? net : 0],
                     backgroundColor: ['#81e6e2', '#f28d8d', '#5c85d6'],
-                    borderWidth: 5,
-                    borderColor: '#fff'
+                    borderWidth: 8,
+                    borderColor: 'rgba(255,255,255,0.8)',
+                    hoverOffset: 15
                 }]
             },
-            options: { cutout: '65%', plugins: { legend: { display: false } } }
+            options: { cutout: '70%', plugins: { legend: { display: false } } }
         });
     }
 
