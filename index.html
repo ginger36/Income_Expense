@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>nongsorin - Ultra Tracker ✨</title>
+<title>nongsorin - Ultra Tracker 🩵</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -29,7 +29,7 @@ body {
     overflow-x: hidden;
 }
 
-/* --- อิโมจิพื้นหลัง ลอยนิ่งๆ --- */
+/* --- อิโมจิหัวใจพื้นหลัง --- */
 #bg-emojis {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -42,7 +42,7 @@ body {
 }
 @keyframes gentleFloat {
     0% { transform: translateY(0) rotate(0deg); }
-    100% { transform: translateY(-25px) rotate(10deg); }
+    100% { transform: translateY(-25px) rotate(15deg); }
 }
 
 .container { max-width: 500px; width: 92%; padding: 40px 0 100px; position: relative; z-index: 1; }
@@ -67,17 +67,18 @@ body {
 }
 .logo-glow img { width: 100%; height: 100%; object-fit: cover; }
 
+/* เปลี่ยนเป็นหัวใจสีฟ้าหมุนรอบๆ */
 .orbit {
     position: absolute;
-    font-size: 28px;
+    font-size: 26px;
     z-index: 6;
     animation: orbitGentle 4s ease-in-out infinite alternate;
 }
-@keyframes orbitGentle { from { transform: translateY(0); } to { transform: translateY(-12px); } }
-.e1 { top: 10%; left: 5%; }
-.e2 { top: 10%; right: 5%; animation-delay: 0.5s; }
-.e3 { bottom: 15%; left: 0%; animation-delay: 1s; }
-.e4 { bottom: 15%; right: 0%; animation-delay: 1.5s; }
+@keyframes orbitGentle { from { transform: translateY(0) scale(1); } to { transform: translateY(-12px) scale(1.1); } }
+.e1 { top: 12%; left: 8%; }
+.e2 { top: 12%; right: 8%; animation-delay: 0.5s; }
+.e3 { bottom: 18%; left: 5%; animation-delay: 1s; }
+.e4 { bottom: 18%; right: 5%; animation-delay: 1.5s; }
 
 /* --- บล็อก Glassmorphism --- */
 .section {
@@ -157,16 +158,16 @@ input, select {
 <div class="container">
     <div class="header-section">
         <div class="logo-container">
-            <span class="orbit e1">🐳</span>
-            <span class="orbit e2">🐠</span>
-            <span class="orbit e3">🦋</span>
-            <span class="orbit e4">🪼</span>
+            <span class="orbit e1">🩵</span>
+            <span class="orbit e2">🩵</span>
+            <span class="orbit e3">🩵</span>
+            <span class="orbit e4">🩵</span>
             <div class="logo-glow">
                 <img src="att.0s6x5y6gyBz3Q27JNKonjuezkpDX0Fr1zY9NUqwywz4.jpeg" alt="logo">
             </div>
         </div>
         <h1 style="color: var(--dark-navy); font-size: 32px; margin-top: 12px; font-weight: 500;">nongsorin</h1>
-        <p style="opacity: 0.5; font-size: 13px;">Wealthy & Aesthetics Dashboard ✨</p>
+        <p style="opacity: 0.5; font-size: 13px;">Wealthy & Aesthetics Dashboard 🩵</p>
     </div>
 
     <div class="section">
@@ -181,7 +182,7 @@ input, select {
             <input type="number" id="cost" placeholder="ต้นทุน (฿)">
             <input type="number" id="price" placeholder="ราคาขาย/จ่าย (฿)">
         </div>
-        <button onclick="addItem()" class="btn-main">บันทึกข้อมูลแบบเริดๆ 💎</button>
+        <button onclick="addItem()" class="btn-main">บันทึกข้อมูล 🩵</button>
     </div>
 
     <div class="section">
@@ -225,15 +226,15 @@ input, select {
 </div>
 
 <script>
+    // --- เปลี่ยนอิโมจิพื้นหลังเป็นหัวใจสีฟ้าทั้งหมด ---
     const bgContainer = document.getElementById('bg-emojis');
-    const emojis = ['🌸', '✨', '💎', '🐳', '💧', '🫧'];
-    for(let i=0; i<12; i++) {
+    for(let i=0; i<15; i++) {
         let span = document.createElement('span');
         span.className = 'float-bg';
-        span.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+        span.innerText = '🩵';
         span.style.left = Math.random()*100 + 'vw';
         span.style.top = Math.random()*100 + 'vh';
-        span.style.fontSize = Math.random()*12 + 15 + 'px';
+        span.style.fontSize = Math.random()*10 + 15 + 'px';
         span.style.animationDelay = Math.random()*5 + 's';
         bgContainer.appendChild(span);
     }
@@ -248,7 +249,7 @@ input, select {
         const cost = parseFloat(document.getElementById('cost').value) || 0;
         const price = parseFloat(document.getElementById('price').value) || 0;
 
-        if(!desc || !date || price <= 0) return alert('กรอกข้อมูลให้ครบก่อนนะคะ ✨');
+        if(!desc || !date || price <= 0) return alert('กรอกข้อมูลให้ครบก่อนนะคะ 🩵');
 
         transactions.push({ desc, type, date, cost, price });
         localStorage.setItem('sorin_profit_v2', JSON.stringify(transactions));
@@ -324,35 +325,26 @@ input, select {
         });
     }
 
-    // ฟังก์ชันใหม่: ส่งออกข้อมูลเป็น CSV
     function exportCSV() {
         if(transactions.length === 0) return alert('ไม่มีข้อมูลให้ส่งออกค่ะ');
-        
-        let csvContent = "\uFEFF"; // รองรับภาษาไทยใน Excel
+        let csvContent = "\uFEFF"; 
         csvContent += "วันที่,รายการ,ประเภท,ต้นทุน,ยอดเงิน\n";
-        
         transactions.forEach(t => {
             csvContent += `${t.date},${t.desc},${t.type === 'income' ? 'รายรับ' : 'รายจ่าย'},${t.cost},${t.price}\n`;
         });
-
         const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
         const link = document.createElement("a");
         const url = URL.createObjectURL(blob);
         link.setAttribute("href", url);
-        link.setAttribute("download", `nongsorin_report_${new Date().toLocaleDateString()}.csv`);
-        link.style.visibility = 'hidden';
-        document.body.appendChild(link);
+        link.setAttribute("download", `nongsorin_report.csv`);
         link.click();
-        document.body.removeChild(link);
     }
 
-    // ฟังก์ชันใหม่: ล้างข้อมูลทั้งหมด
     function clearAllData() {
-        if(confirm('คุณแน่ใจนะคะว่าจะล้างข้อมูลทั้งหมด? ข้อมูลจะหายถาวรเลยน้า ✨')) {
+        if(confirm('ล้างข้อมูลทั้งหมด? ข้อมูลจะหายถาวรเลยนะ 🩵')) {
             transactions = [];
             localStorage.removeItem('sorin_profit_v2');
             calculateSummary();
-            alert('ล้างข้อมูลเรียบร้อยแล้วค่ะ!');
         }
     }
 
