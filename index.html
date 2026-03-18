@@ -3,396 +3,229 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>nongsorin - Elegant Tracker 📈</title>
+<title>nongsorin - รายรับ รายจ่าย</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 :root {
-    --tiffany: #81e6e2;  
-    --navy: #5c85d6;     
-    --red: #f28d8d;      
-    --text: #4a5568;
-    --bg-white: rgba(255, 255, 255, 0.85);
-    /* สีสำหรับแสงออร่า */
-    --glow-color: rgba(129, 230, 226, 0.6); 
+/* ปรับโทนสีตามบรีฟ: แดง, น้ำเงิน, ฟ้า Tiffany */
+--bg: #f0faff; 
+--main: #0abab5; /* Tiffany Blue */
+--dark: #0056b3; /* Dark Blue */
+--accent: #e63946; /* Red */
+--white: #ffffff;
+--glow: rgba(10, 186, 181, 0.3);
 }
 
 *{margin: 0; padding: 0; box-sizing: border-box; font-family: 'Mitr', sans-serif;}
 
 body {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    background: linear-gradient(135deg, #fdfcfb 0%, #e2ebf0 50%, #fef9e7 100%);
-    background-attachment: fixed;
-    color: var(--text);
-    position: relative;
-    overflow-x: hidden; /* กันอิโมจิลอยออกข้าง */
+background: var(--bg);
+display: flex;
+justify-content: center;
 }
 
-/* --- สไตล์สำหรับอิโมจิพื้นหลัง --- */
-#emoji-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; /* อยู่หลังเนื้อหา */
-    pointer-events: none; /* กดทะลุได้ */
+.container{
+max-width: 500px;
+width: 100%;
+padding: 20px 15px 40px;
 }
-
-.floating-emoji {
-    position: absolute;
-    opacity: 0;
-    animation: floatEmoji linear infinite;
-}
-
-@keyframes floatEmoji {
-    0% {
-        transform: translateY(110vh) rotate(0deg) scale(0.8);
-        opacity: 0;
-    }
-    10% {
-        opacity: 0.5;
-    }
-    90% {
-        opacity: 0.5;
-    }
-    100% {
-        transform: translateY(-20vh) rotate(360deg) scale(1.2);
-        opacity: 0;
-    }
-}
-/* ---------------------------------- */
-
-.container {
-    max-width: 500px;
-    width: 92%;
-    padding: 40px 0 100px;
-    position: relative;
-    z-index: 1; /* อยู่เหนืออิโมจิ */
-}
-
-.header-section { margin-bottom: 30px; text-align: center; }
-
-/* --- สไตล์โลโก้มีแสง --- */
-.logo {
-    width: 100px; height: 100px;
-    border-radius: 50%;
-    margin: 0 auto 20px;
-    border: 4px solid #fff;
-    background: #fff;
-    position: relative;
-    /* แสงออร่านิ่งๆ */
-    box-shadow: 0 0 20px 5px var(--glow-color);
-    /* เพิ่มอนิเมชั่นแสงกะพริบเบาๆ */
-    animation: logoGlow 3s ease-in-out infinite alternate;
-}
-
-@keyframes logoGlow {
-    from {
-        box-shadow: 0 0 15px 3px var(--glow-color);
-    }
-    to {
-        box-shadow: 0 0 30px 8px var(--glow-color), 0 0 50px 15px rgba(92, 133, 214, 0.3);
-    }
-}
-
-.logo img { 
-    width: 100%; height: 100%; 
-    border-radius: 50%; 
-    object-fit: cover; 
-    position: relative;
-    z-index: 2; /* อยู่เหนือแสง */
-}
-/* -------------------- */
-
-h1 { font-weight: 500; font-size: 30px; color: var(--navy); opacity: 0.9; }
-.subtitle { font-weight: 300; font-size: 14px; color: #718096; }
 
 .section {
-    background: var(--bg-white);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 30px;
-    padding: 25px;
-    margin-bottom: 25px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    box-shadow: 0 15px 35px rgba(92, 133, 214, 0.05);
+background: var(--white);
+border-radius: 20px;
+padding: 25px 20px;
+margin-bottom: 20px;
+box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+border: 2px solid var(--main);
 }
 
-h2 { font-size: 17px; font-weight: 500; margin-bottom: 20px; color: var(--navy); display: flex; align-items: center; gap: 10px; }
+h1,h2,h3{color: var(--dark);}
+.center {text-align: center;}
 
-.input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.full-width { grid-column: span 2; }
-
-input, select {
-    background: rgba(255, 255, 255, 0.5);
-    border: 1px solid #e2e8f0;
-    padding: 12px;
-    border-radius: 15px;
-    outline: none;
-    font-size: 14px;
-    color: var(--text);
-    transition: all 0.3s ease;
+.logo{
+width: 150px; height: 150px;
+border-radius: 50%;
+overflow: hidden;
+margin: 0 auto 20px;
+box-shadow: 0 6px 20px var(--glow);
+border: 3px solid var(--main);
 }
-input:focus { border-color: var(--tiffany); background: #fff; }
 
-.btn-main {
-    width: 100%;
-    background: linear-gradient(135deg, var(--navy), var(--tiffany));
-    color: #fff;
-    border: none;
-    padding: 15px;
-    border-radius: 18px;
-    font-size: 16px;
-    font-weight: 400;
-    margin-top: 15px;
-    cursor: pointer;
-    box-shadow: 0 8px 20px rgba(92, 133, 214, 0.2);
-    transition: 0.3s;
+.logo img {width: 100%; height: 100%; object-fit: cover;}
+
+.badges{
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+gap: 10px;
+margin-bottom: 20px;
 }
-.btn-main:hover { opacity: 0.9; transform: translateY(-1px); }
 
-.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
-.stat-box {
-    background: #fff;
-    padding: 18px;
-    border-radius: 22px;
-    text-align: center;
-    border-bottom: 3px solid transparent;
+.badge{
+background: var(--white);
+padding: 8px 16px;
+border-radius: 25px;
+box-shadow: 0 4px 10px var(--glow);
+font-size: 13px;
+color: var(--dark);
+border: 1px solid var(--main);
 }
-.stat-label { font-size: 11px; color: #a0aec0; text-transform: uppercase; letter-spacing: 1px; }
-.stat-value { font-size: 18px; font-weight: 500; margin-top: 5px; }
 
-.result-row {
-    display: flex; justify-content: space-between; padding: 15px 20px;
-    border-radius: 20px; margin-bottom: 12px; font-size: 14px;
+.btn{
+display: block;
+text-align: center;
+padding: 14px;
+border-radius: 25px;
+text-decoration: none;
+margin-top: 15px;
+font-weight: 500;
+transition: 0.3s;
 }
-.row-income { background: #f0fff4; color: #48bb78; } 
-.row-expense { background: #fff5f5; color: #f56565; } 
-.row-profit { background: var(--navy); color: #fff; box-shadow: 0 10px 20px rgba(92, 133, 214, 0.15); }
 
-.item-card {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 16px 5px; border-bottom: 1px solid #edf2f7;
+.btn-outline {
+background: transparent;
+border: 2px dashed var(--main);
+color: var(--dark);
 }
-.item-card:last-child { border: none; }
-.item-info b { font-weight: 500; color: #4a5568; }
-.item-info small { display: block; font-size: 11px; color: #a0aec0; margin-top: 2px; }
 
-.chart-container { margin: 10px auto 20px; max-width: 190px; }
+.btn-main{
+background: var(--main);
+color: white;
+}
 
-.footer-text { text-align: center; font-size: 11px; color: #cbd5e0; margin-top: 40px; letter-spacing: 1px; }
+.btn-accent{
+background: var(--accent);
+color: white;
+}
+
+.step {
+display: flex;
+align-items: center;
+gap: 12px;
+margin-bottom: 12px;
+}
+
+.step-num{
+background: var(--dark);
+color: white;
+width: 26px; height: 26px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 13px;
+flex-shrink: 0;
+}
+
+.price-row {
+display: flex;
+justify-content: space-between;
+margin-bottom: 10px;
+background: #f9ffff;
+padding: 10px 15px;
+border-radius: 15px;
+border-left: 4px solid var(--accent);
+}
+
+.price-tag {
+background: var(--main);
+color: white;
+padding: 3px 12px;
+border-radius: 20px;
+font-size: 14px;
+}
+
+.footer {
+text-align: center;
+margin-top: 30px;
+}
+
+.social {
+display: flex;
+gap: 8px;
+justify-content: center;
+margin-top: 15px;
+}
+
+.social a {
+flex: 1;
+max-width: 100px;
+text-align: center;
+padding: 8px;
+border-radius: 25px;
+background: var(--white);
+text-decoration: none;
+color: var(--dark);
+font-size: 13px;
+border: 1px solid var(--main);
+}
+
+.small {font-size: 12px; opacity: .7; margin-top: 10px;}
 </style>
 </head>
+
 <body>
-
-<div id="emoji-container"></div>
-
 <div class="container">
-    <div class="header-section">
-        <div class="logo">
-            <img src="att.0s6x5y6gyBz3Q27JNKonjuezkpDX0Fr1zY9NUqwywz4.jpeg" alt="logo">
-        </div>
-        <h1>nongsorin</h1>
-        <p class="subtitle">บันทึกรายรับรายจ่ายในแบบที่สบายตา ✨</p>
-        
-        <div class="stats-grid">
-            <div class="stat-box" style="border-color: var(--tiffany);">
-                <span class="stat-label">กำไรเดือนนี้</span>
-                <span id="badge-month" class="stat-value">0 ฿</span>
-            </div>
-            <div class="stat-box" style="border-color: var(--navy);">
-                <span class="stat-label">รวมปี 2026</span>
-                <span id="badge-year" class="stat-value">0 ฿</span>
-            </div>
-        </div>
-    </div>
 
-    <div class="section">
-        <h2>📝 เพิ่มรายการเงิน</h2>
-        <div class="input-grid">
-            <input type="text" id="desc" placeholder="เช่น ค่ากาแฟ, ขายของได้..." class="full-width">
-            <select id="type">
-                <option value="income">รายรับ (+)</option>
-                <option value="expense">รายจ่าย (-)</option>
-            </select>
-            <input type="date" id="date">
-            <input type="number" id="cost" placeholder="ต้นทุน">
-            <input type="number" id="price" placeholder="ยอดเงิน">
-        </div>
-        <button onclick="addItem()" class="btn-main">บันทึกรายการ 🌸</button>
-    </div>
+<div class="section center" style="border:none; box-shadow:none; background:transparent;">
 
-    <div class="section">
-        <h2>📊 สรุปยอด</h2>
-        <div class="chart-container">
-            <canvas id="profitChart"></canvas>
-        </div>
-        <div class="result-row row-income">
-            <span>รายรับรวม</span>
-            <span id="sumIn">0 ฿</span>
-        </div>
-        <div class="result-row row-expense">
-            <span>รายจ่ายรวม</span>
-            <span id="sumOut">0 ฿</span>
-        </div>
-        <div class="result-row row-profit">
-            <span style="font-weight: 300;">กำไรสุทธิ</span>
-            <span id="sumNet" style="font-size: 18px; font-weight: 500;">0 ฿</span>
-        </div>
-    </div>
-
-    <div class="section">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 20px;">
-            <h2 style="margin:0;">📅 รายการย้อนหลัง</h2>
-            <select id="filterMonth" onchange="calculateSummary()" style="padding: 5px 10px; border-radius: 12px; font-size: 12px;">
-                <option value="all">ทุกเดือน</option>
-                <option value="0">ม.ค.</option><option value="1">ก.พ.</option><option value="2">มี.ค.</option>
-                <option value="3">เม.ย.</option><option value="4">พ.ค.</option><option value="5">มิ.ย.</option>
-                <option value="6">ก.ค.</option><option value="7">ส.ค.</option><option value="8">ก.ย.</option>
-                <option value="9">ต.ค.</option><option value="10">พ.ย.</option><option value="11">ธ.ค.</option>
-            </select>
-        </div>
-        <div id="displayList"></div>
-        <p onclick="clearData()" style="text-align:center; font-size:10px; color:#cbd5e0; margin-top:30px; cursor:pointer; text-decoration: underline;">รีเซ็ตข้อมูลทั้งหมด</p>
-    </div>
-
-    <p class="footer-text">CREATED BY NONGSORIN • 2026</p>
+<div class="logo">
+<img src="logo.jpg" alt="nongsorin logo">
 </div>
 
-<script>
-    // --- ส่วนจัดการอิโมจิลอยละล่อง ---
-    const emojiContainer = document.getElementById('emoji-container');
-    // รายลากอิโมจิที่ต้องการให้ลอย
-    const emojis = ['🌸', '🐳', '✨', '💧', '💰', '📈', '💖', '🌟']; 
+<h1>nongsorin</h1>
+<p style="color: var(--dark); opacity: .8; margin: 10px 0 20px;">
+📊 รายรับ รายจ่าย ประจำเดือน
+</p>
 
-    function createFloatingEmoji() {
-        const emojiEl = document.createElement('div');
-        emojiEl.className = 'floating-emoji';
-        
-        // สุ่มเลือกอิโมจิ
-        emojiEl.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-        
-        // สุ่มตำแหน่งแนวนอน (0% - 100%)
-        emojiEl.style.left = Math.random() * 100 + 'vw';
-        
-        // สุ่มขนาด (15px - 35px)
-        emojiEl.style.fontSize = (Math.random() * 20 + 15) + 'px';
-        
-        // สุ่มระยะเวลาอนิเมชั่น (8s - 15s) เพื่อให้ลอยเร็วช้าต่างกัน
-        emojiEl.style.animationDuration = (Math.random() * 7 + 8) + 's';
-        
-        // สุ่ม delay (0s - 5s) เพื่อไม่ให้ขึ้นมาพร้อมกันหมดตอนโหลดเสร็จ
-        emojiEl.style.animationDelay = (Math.random() * 5) + 's';
+<div class="badges">
+<div class="badge">📈 สรุปยอด</div>
+<div class="badge">🧹 เคลียร์ข้อมูลได้</div>
+<div class="badge">💎 จัดการง่าย</div>
+</div>
 
-        emojiContainer.appendChild(emojiEl);
+<a href="#" class="btn btn-outline">
+🔍 เช็คคิวงาน/สถานะระบบ ✨
+</a>
+</div>
 
-        // ลบ element ทิ้งเมื่อจบอนิเมชั่นเพื่อไม่ให้หนักเครื่อง
-        // ใช้เวลามากที่สุดของ animationDuration + animationDelay
-        setTimeout(() => {
-            emojiEl.remove();
-        }, 20000); 
-    }
+<div class="section">
+<h2>📝 ขั้นตอนการใช้งาน</h2>
 
-    // สร้างอิโมจิเริ่มต้น 15 ตัว
-    for(let i = 0; i < 15; i++) {
-        createFloatingEmoji();
-    }
+<div class="step"><div class="step-num">1</div><div>บันทึกรายรับ-รายจ่ายรายวัน</div></div>
+<div class="step"><div class="step-num">2</div><div>ระบบคำนวณยอดคงเหลืออัตโนมัติ</div></div>
+<div class="step"><div class="step-num">3</div><div>สรุปยอดรวมประจำเดือน</div></div>
+<div class="step"><div class="step-num">4</div><div>กดเคลียร์ข้อมูลเพื่อเริ่มเดือนใหม่</div></div>
 
-    // สร้างอิโมจิใหม่เรื่อยๆ ทุกๆ 1.5 วินาที
-    setInterval(createFloatingEmoji, 1500);
-    // ----------------------------------
+<a href="#" class="btn btn-main">ดูวิธีใช้งานเพิ่มเติม</a>
+</div>
 
+<div class="section">
+<h2>💰 รูปแบบบริการ</h2>
 
-    let transactions = JSON.parse(localStorage.getItem('harmonious_tracker_v1')) || [];
-    let myChart = null;
+<div class="price-row"><span>สรุปยอดรายเดือน</span><span class="price-tag">เริ่มต้น 0฿</span></div>
+<div class="price-row"><span>จัดการไฟล์/ข้อมูล</span><span class="price-tag">Free</span></div>
+<div class="price-row"><span>แบบฟอร์มบรีฟงาน</span><span class="price-tag">สอบถามเพิ่มเติม</span></div>
 
-    function addItem() {
-        const desc = document.getElementById('desc').value;
-        const type = document.getElementById('type').value;
-        const date = document.getElementById('date').value;
-        const cost = parseFloat(document.getElementById('cost').value) || 0;
-        const price = parseFloat(document.getElementById('price').value) || 0;
+<a href="#" class="btn btn-accent">สั่งทำ/สอบถามราคา</a>
+</div>
 
-        if(!desc || !date) return alert('รบกวนกรอกรายละเอียดก่อนบันทึกนะคะ ✨');
+<div class="footer">
+<a href="#" class="btn btn-main">ติดต่อสอบถามคลิก 🎀</a>
 
-        transactions.push({ desc, type, date, cost, price });
-        localStorage.setItem('harmonious_tracker_v1', JSON.stringify(transactions));
-        
-        document.getElementById('desc').value = '';
-        document.getElementById('cost').value = '';
-        document.getElementById('price').value = '';
-        calculateSummary();
-    }
+<div class="social">
+<a href="#">Facebook</a>
+<a href="#">Instagram</a>
+<a href="#">Line</a>
+</div>
 
-    function calculateSummary() {
-        const filter = document.getElementById('filterMonth').value;
-        const listDiv = document.getElementById('displayList');
-        listDiv.innerHTML = '';
-        let tIn = 0, tOut = 0, yNet = 0;
-        const currYear = new Date().getFullYear();
+<p class="small">
+© 2026 nongsorin - Financial Tracker
+</p>
+</div>
 
-        [...transactions].sort((a,b) => new Date(b.date) - new Date(a.date)).forEach(item => {
-            const d = new Date(item.date);
-            const isMatch = filter === 'all' || d.getMonth().toString() === filter;
-            const profit = item.type === 'income' ? (item.price - item.cost) : -item.cost;
-
-            if(d.getFullYear() === currYear) yNet += profit;
-
-            if(isMatch) {
-                if(item.type === 'income') tIn += item.price;
-                else tOut += item.cost;
-
-                listDiv.innerHTML += `
-                    <div class="item-card">
-                        <div class="item-info">
-                            <b>${item.desc}</b>
-                            <small>${d.toLocaleDateString('th-TH', {day:'numeric', month:'short'})}</small>
-                        </div>
-                        <div style="text-align:right; font-weight:500; color:${profit>=0?'#48bb78':'#f56565'}">
-                            ${profit > 0 ? '+' : ''}${profit.toLocaleString()} ฿
-                        </div>
-                    </div>`;
-            }
-        });
-
-        document.getElementById('sumIn').innerText = tIn.toLocaleString() + ' ฿';
-        document.getElementById('sumOut').innerText = tOut.toLocaleString() + ' ฿';
-        const net = tIn - tOut;
-        document.getElementById('sumNet').innerText = net.toLocaleString() + ' ฿';
-        document.getElementById('badge-month').innerText = net.toLocaleString() + ' ฿';
-        document.getElementById('badge-year').innerText = yNet.toLocaleString() + ' ฿';
-        
-        updateChart(tIn, tOut, net);
-        if(!listDiv.innerHTML) listDiv.innerHTML = '<p style="text-align:center; opacity:0.3; font-size:12px; padding:20px;">ไม่มีรายการบันทึกจ้ะ</p>';
-    }
-
-    function updateChart(inc, out, net) {
-        const ctx = document.getElementById('profitChart').getContext('2d');
-        if (myChart) myChart.destroy();
-        myChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: ['รายรับ', 'รายจ่าย', 'กำไรสุทธิ'],
-                datasets: [{
-                    data: [inc, out, net > 0 ? net : 0],
-                    backgroundColor: ['#81e6e2', '#f28d8d', '#5c85d6'],
-                    borderWidth: 0
-                }]
-            },
-            options: { cutout: '80%', plugins: { legend: { display: false } } }
-        });
-    }
-
-    function clearData() { if(confirm('ต้องการลบข้อมูลทั้งหมดใช่ไหมคะ?')) { transactions = []; localStorage.clear(); calculateSummary(); } }
-    
-    document.getElementById('date').valueAsDate = new Date();
-    calculateSummary();
-</script>
-
+</div>
 </body>
 </html>
