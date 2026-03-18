@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>nongsorin - Elegant Tracker 📈</title>
+<title>nongsorin - รายรับรายจ่าย 📈</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -12,9 +12,8 @@
 :root {
     --tiffany: #0abab5;
     --navy: #002d5e;
-    --soft-pink: #fbc2eb;
-    --soft-yellow: #fef9e7;
-    --white: rgba(255, 255, 255, 0.9);
+    --red: #e63946;
+    --white: rgba(255, 255, 255, 0.92);
 }
 
 *{margin: 0; padding: 0; box-sizing: border-box; font-family: 'Mitr', sans-serif;}
@@ -23,14 +22,14 @@ body {
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    /* พื้นหลังเบนสีแบบฟุ้งๆ มีสีสัน */
+    /* พื้นหลังเบนสี แดง น้ำเงิน Tiffany ฟุ้งๆ */
     background: 
-        radial-gradient(at 0% 0%, #e0f7f6 0px, transparent 50%),
-        radial-gradient(at 50% 0%, #fbc2eb 0px, transparent 50%),
-        radial-gradient(at 100% 0%, #a6c1ee 0px, transparent 50%),
-        radial-gradient(at 0% 100%, #fef9e7 0px, transparent 50%),
-        radial-gradient(at 100% 100%, #e0f2f1 0px, transparent 50%);
-    background-color: #fdfbfb;
+        radial-gradient(at 0% 0%, rgba(10, 186, 181, 0.4) 0px, transparent 50%),
+        radial-gradient(at 50% 0%, rgba(230, 57, 70, 0.3) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(0, 45, 94, 0.4) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, rgba(230, 57, 70, 0.2) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(10, 186, 181, 0.3) 0px, transparent 50%);
+    background-color: #f8f9fa;
     background-attachment: fixed;
     position: relative;
     color: var(--navy);
@@ -40,8 +39,7 @@ body {
 .bg-emoji {
     position: fixed;
     z-index: -1;
-    opacity: 0.4;
-    filter: blur(0.5px);
+    opacity: 0.3;
     animation: floatEmoji 12s linear infinite;
 }
 
@@ -56,99 +54,99 @@ body {
     padding: 40px 0 100px;
 }
 
-/* หัวข้อและโลโก้ */
 .header-section { margin-bottom: 30px; text-align: center; }
 .logo {
-    width: 115px; height: 115px;
+    width: 110px; height: 110px;
     border-radius: 50%;
     margin: 0 auto 20px;
     border: 4px solid #fff;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
     overflow: hidden;
 }
 .logo img { width: 100%; height: 100%; object-fit: cover; }
 
-h1 { font-weight: 500; font-size: 32px; margin-bottom: 5px; color: var(--navy); }
-.subtitle { font-weight: 300; font-size: 14px; opacity: 0.7; color: var(--navy); }
+h1 { font-weight: 500; font-size: 34px; margin-bottom: 5px; color: var(--navy); letter-spacing: 1px; }
+.subtitle { font-weight: 400; font-size: 16px; color: var(--navy); opacity: 0.8; }
 
-/* สไตล์กล่องข้อความ แกรม มินิมอล */
+/* กล่องข้อความ แกรม มินิมอล */
 .section {
     background: var(--white);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
     border-radius: 35px;
     padding: 25px;
     margin-bottom: 25px;
-    border: 1px solid rgba(255,255,255,0.8);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+    border: 1px solid rgba(255,255,255,0.7);
+    box-shadow: 0 15px 45px rgba(0,0,0,0.06);
 }
 
-h2 { font-size: 18px; font-weight: 500; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+h2 { font-size: 18px; font-weight: 500; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; color: var(--navy); }
 
 /* Input */
 .input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .full-width { grid-column: span 2; }
 
 input, select {
-    background: rgba(255,255,255,0.7);
-    border: 1px solid rgba(0,0,0,0.08);
+    background: rgba(255,255,255,0.8);
+    border: 1.5px solid rgba(0,0,0,0.05);
     padding: 12px 15px;
     border-radius: 18px;
     outline: none;
     font-size: 14px;
-    color: var(--navy);
+    transition: 0.3s;
 }
-input:focus { border-color: var(--tiffany); background: #fff; }
+input:focus { border-color: var(--tiffany); box-shadow: 0 0 10px rgba(10,186,181,0.2); }
 
-/* ปุ่มหลัก */
+/* ปุ่มหลัก สีน้ำเงินแกรม */
 .btn-main {
     width: 100%;
-    background: linear-gradient(135deg, var(--navy), #0056b3);
+    background: linear-gradient(135deg, var(--navy) 0%, #004b9e 100%);
     color: #fff;
     border: none;
-    padding: 15px;
-    border-radius: 20px;
+    padding: 16px;
+    border-radius: 22px;
     font-size: 16px;
     font-weight: 500;
     margin-top: 15px;
     cursor: pointer;
-    box-shadow: 0 8px 20px rgba(0,45,94,0.2);
+    box-shadow: 0 8px 25px rgba(0,45,94,0.3);
     transition: 0.3s;
 }
-.btn-main:hover { transform: translateY(-2px); box-shadow: 0 12px 25px rgba(0,45,94,0.3); }
+.btn-main:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,45,94,0.4); }
 
-/* สถิติ */
-.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
+/* สถิติรายรับรายจ่าย */
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
 .stat-box {
-    background: rgba(255,255,255,0.8);
-    padding: 18px;
-    border-radius: 25px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 28px;
     text-align: center;
-    border: 1px solid rgba(255,255,255,1);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.03);
+    border: 1px solid rgba(0,0,0,0.02);
 }
 .stat-label { font-size: 12px; opacity: 0.6; display: block; margin-bottom: 5px; }
-.stat-value { font-size: 18px; font-weight: 500; }
+.stat-value { font-size: 20px; font-weight: 500; }
 
 .result-row {
-    display: flex; justify-content: space-between; padding: 15px 20px;
-    border-radius: 20px; margin-bottom: 10px; font-size: 14px;
+    display: flex; justify-content: space-between; padding: 16px 20px;
+    border-radius: 22px; margin-bottom: 12px; font-size: 15px;
 }
-.row-income { background: #e0f2f1; color: #00796b; }
-.row-expense { background: #ffebee; color: #c62828; }
-.row-profit { background: var(--navy); color: #fff; margin-top: 10px; }
+.row-income { background: rgba(10, 186, 181, 0.12); color: #00897b; border: 1px solid rgba(10, 186, 181, 0.2); }
+.row-expense { background: rgba(230, 57, 70, 0.08); color: var(--red); border: 1px solid rgba(230, 57, 70, 0.15); }
+.row-profit { background: var(--navy); color: #fff; margin-top: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
 
-/* รายการ */
+/* ประวัติ */
 .item-card {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 15px 5px; border-bottom: 1px solid rgba(0,0,0,0.05);
+    padding: 18px 5px; border-bottom: 1.5px solid rgba(0,0,0,0.03);
 }
 .item-card:last-child { border: none; }
-.item-info b { font-weight: 500; color: var(--navy); }
-.item-info small { display: block; font-size: 11px; opacity: 0.5; }
+.item-info b { font-weight: 500; color: var(--navy); font-size: 15px; }
+.item-info small { display: block; font-size: 11px; opacity: 0.5; margin-top: 2px; }
 
-.chart-container { margin: 10px auto; max-width: 220px; }
+.chart-container { margin: 10px auto 25px; max-width: 210px; }
 
-.footer-text { text-align: center; font-size: 11px; opacity: 0.4; margin-top: 40px; }
+.footer-text { text-align: center; font-size: 11px; opacity: 0.4; margin-top: 50px; letter-spacing: 1px; }
 </style>
 </head>
 <body>
@@ -161,58 +159,58 @@ input:focus { border-color: var(--tiffany); background: #fff; }
             <img src="att.0s6x5y6gyBz3Q27JNKonjuezkpDX0Fr1zY9NUqwywz4.jpeg" alt="logo">
         </div>
         <h1>nongsorin</h1>
-        <p class="subtitle">บันทึกกำไรและความสุขในทุกวัน 🌸</p>
+        <p class="subtitle">บันทึกรายรับรายจ่าย ให้ชีวิตมีสมดุล 📈✨</p>
         
         <div class="stats-grid">
-            <div class="stat-box">
-                <span class="stat-label">กำไรเดือนนี้</span>
+            <div class="stat-box" style="border-bottom: 4px solid var(--tiffany);">
+                <span class="stat-label">กำไรสะสมเดือนนี้</span>
                 <span id="badge-month" class="stat-value">0 ฿</span>
             </div>
-            <div class="stat-box">
-                <span class="stat-label">ยอดรวมรายปี</span>
-                <span id="badge-year" class="stat-value" style="color: var(--tiffany);">0 ฿</span>
+            <div class="stat-box" style="border-bottom: 4px solid var(--navy);">
+                <span class="stat-label">ยอดรวมรายปี 2026</span>
+                <span id="badge-year" class="stat-value">0 ฿</span>
             </div>
         </div>
     </div>
 
     <div class="section">
-        <h2>📝 เพิ่มรายการใหม่</h2>
+        <h2>📝 เพิ่มรายการรายรับรายจ่าย</h2>
         <div class="input-grid">
-            <input type="text" id="desc" placeholder="เช่น ขายขนม, ซื้อของ..." class="full-width">
+            <input type="text" id="desc" placeholder="เช่น ค่าข้าว, รายได้ขายของ..." class="full-width">
             <select id="type">
-                <option value="income">รายรับ (+)</option>
-                <option value="expense">รายจ่าย (-)</option>
+                <option value="income">➕ รายรับ (เงินเข้า)</option>
+                <option value="expense">➖ รายจ่าย (เงินออก)</option>
             </select>
             <input type="date" id="date">
-            <input type="number" id="cost" placeholder="ต้นทุน (บาท)">
-            <input type="number" id="price" placeholder="ราคาขาย (บาท)">
+            <input type="number" id="cost" placeholder="ต้นทุน/จ่ายจริง">
+            <input type="number" id="price" placeholder="ราคาขาย/รับเงิน">
         </div>
-        <button onclick="addItem()" class="btn-main">บันทึกข้อมูล ✨</button>
+        <button onclick="addItem()" class="btn-main">บันทึกข้อมูลลงสมุด ✨</button>
     </div>
 
     <div class="section">
-        <h2>📊 สรุปยอดเงิน</h2>
+        <h2>📊 สรุปภาพรวมการเงิน</h2>
         <div class="chart-container">
             <canvas id="profitChart"></canvas>
         </div>
         <div class="result-row row-income">
-            <span>รายรับทั้งหมด</span>
-            <span id="sumIn">0 ฿</span>
+            <span>รายรับทั้งหมด (+)</span>
+            <span id="sumIn" style="font-weight: 600;">0 ฿</span>
         </div>
         <div class="result-row row-expense">
-            <span>รายจ่ายทั้งหมด</span>
-            <span id="sumOut">0 ฿</span>
+            <span>รายจ่ายทั้งหมด (-)</span>
+            <span id="sumOut" style="font-weight: 600;">0 ฿</span>
         </div>
         <div class="result-row row-profit">
-            <span style="font-weight: 300;">กำไรสุทธิ</span>
-            <span id="sumNet" style="font-size: 18px; font-weight: 500;">0 ฿</span>
+            <span style="font-weight: 300;">กำไรสุทธิคงเหลือ</span>
+            <span id="sumNet" style="font-size: 20px; font-weight: 500;">0 ฿</span>
         </div>
     </div>
 
     <div class="section">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 15px;">
             <h2 style="margin:0;">📅 ประวัติรายการ</h2>
-            <select id="filterMonth" onchange="calculateSummary()" style="padding: 5px; border-radius: 12px; font-size: 12px;">
+            <select id="filterMonth" onchange="calculateSummary()" style="padding: 6px 10px; border-radius: 12px; font-size: 12px; border: 1px solid #ddd;">
                 <option value="all">ทุกเดือน</option>
                 <option value="0">มกราคม</option><option value="1">กุมภาพันธ์</option>
                 <option value="2">มีนาคม</option><option value="3">เมษายน</option>
@@ -223,28 +221,28 @@ input:focus { border-color: var(--tiffany); background: #fff; }
             </select>
         </div>
         <div id="displayList"></div>
-        <p onclick="clearData()" style="text-align:center; font-size:10px; color:#bbb; margin-top:25px; cursor:pointer; text-decoration: underline;">ล้างข้อมูลบันทึกทั้งหมด</p>
+        <p onclick="clearData()" style="text-align:center; font-size:10px; color:#bbb; margin-top:30px; cursor:pointer; text-decoration: underline; letter-spacing: 1px;">ล้างข้อมูลทั้งหมด</p>
     </div>
 
-    <p class="footer-text">© 2026 NONGSORIN • บันทึกกำไรดิจิทัล</p>
+    <p class="footer-text">DESIGNED FOR NONGSORIN • 2026</p>
 </div>
 
 <script>
     // สุ่มอิโมจิพื้นหลัง
-    const emojis = ['🦋', '🪼', '🐳', '🐠', 'Ⓜ️'];
+    const emojis = ['🦋', 'Ⓜ️', '🐳', '✨', '🐠'];
     function createEmoji() {
         const e = document.createElement('div');
         e.className = 'bg-emoji';
         e.innerText = emojis[Math.floor(Math.random() * emojis.length)];
         e.style.left = Math.random() * 100 + 'vw';
-        e.style.fontSize = (Math.random() * 20 + 20) + 'px';
-        e.style.animationDuration = (Math.random() * 8 + 8) + 's';
+        e.style.fontSize = (Math.random() * 20 + 15) + 'px';
+        e.style.animationDuration = (Math.random() * 7 + 7) + 's';
         document.getElementById('emoji-container').appendChild(e);
         setTimeout(() => e.remove(), 12000);
     }
-    setInterval(createEmoji, 2500);
+    setInterval(createEmoji, 3000);
 
-    let transactions = JSON.parse(localStorage.getItem('glam_tracker_data')) || [];
+    let transactions = JSON.parse(localStorage.getItem('glam_tracker_data_v2')) || [];
     let myChart = null;
 
     function addItem() {
@@ -254,10 +252,10 @@ input:focus { border-color: var(--tiffany); background: #fff; }
         const cost = parseFloat(document.getElementById('cost').value) || 0;
         const price = parseFloat(document.getElementById('price').value) || 0;
 
-        if(!desc || !date) return alert('กรุณากรอกชื่อรายการและวันที่ด้วยนะคะ 🌸');
+        if(!desc || !date) return alert('กรุณาระบุรายละเอียดและวันที่ให้ครบถ้วนนะคะ ✨');
 
         transactions.push({ desc, type, date, cost, price });
-        localStorage.setItem('glam_tracker_data', JSON.stringify(transactions));
+        localStorage.setItem('glam_tracker_data_v2', JSON.stringify(transactions));
         
         document.getElementById('desc').value = '';
         document.getElementById('cost').value = '';
@@ -287,10 +285,10 @@ input:focus { border-color: var(--tiffany); background: #fff; }
                     <div class="item-card">
                         <div class="item-info">
                             <b>${item.desc}</b>
-                            <small>${d.toLocaleDateString('th-TH', {day:'numeric', month:'short'})}</small>
+                            <small>${d.toLocaleDateString('th-TH', {day:'numeric', month:'long'})}</small>
                         </div>
-                        <div style="text-align:right; font-weight:500; color:${profit>=0?'#00796b':'#d32f2f'}">
-                            ${profit.toLocaleString()} ฿
+                        <div style="text-align:right; font-weight:600; color:${profit>=0?'#00897b':'#e63946'}">
+                            ${profit > 0 ? '+' : ''}${profit.toLocaleString()} ฿
                         </div>
                     </div>`;
             }
@@ -304,7 +302,7 @@ input:focus { border-color: var(--tiffany); background: #fff; }
         document.getElementById('badge-year').innerText = yNet.toLocaleString() + ' ฿';
         
         updateChart(tIn, tOut, net);
-        if(!listDiv.innerHTML) listDiv.innerHTML = '<p style="text-align:center; opacity:0.3; font-size:12px; padding:15px;">ยังไม่มีข้อมูลบันทึก</p>';
+        if(!listDiv.innerHTML) listDiv.innerHTML = '<p style="text-align:center; opacity:0.3; font-size:12px; padding:20px;">ไม่มีข้อมูลในช่วงเวลานี้</p>';
     }
 
     function updateChart(inc, out, net) {
@@ -316,15 +314,16 @@ input:focus { border-color: var(--tiffany); background: #fff; }
                 labels: ['รายรับ', 'รายจ่าย', 'กำไรสุทธิ'],
                 datasets: [{
                     data: [inc, out, net > 0 ? net : 0],
-                    backgroundColor: ['#0abab5', '#ff8a80', '#002d5e'],
-                    borderWidth: 0
+                    backgroundColor: ['#0abab5', '#e63946', '#002d5e'],
+                    borderWidth: 0,
+                    hoverOffset: 10
                 }]
             },
-            options: { cutout: '80%', plugins: { legend: { display: false } } }
+            options: { cutout: '82%', plugins: { legend: { display: false } } }
         });
     }
 
-    function clearData() { if(confirm('ต้องการลบข้อมูลบันทึกทั้งหมดใช่ไหม?')) { transactions = []; localStorage.clear(); calculateSummary(); } }
+    function clearData() { if(confirm('ต้องการล้างประวัติรายรับรายจ่ายทั้งหมดใช่ไหม?')) { transactions = []; localStorage.clear(); calculateSummary(); } }
     
     document.getElementById('date').valueAsDate = new Date();
     calculateSummary();
