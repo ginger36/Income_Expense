@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="th">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>nongsorin - Ultra Tracker ✨</title>
+<title>nongsorin - The Real Profit ✨</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -14,8 +14,7 @@
     --navy: #5c85d6;     
     --red: #f28d8d;      
     --dark-navy: #3d5a94;
-    --glass: rgba(255, 255, 255, 0.8);
-    --grad-main: linear-gradient(135deg, var(--tiffany), var(--navy));
+    --glass: rgba(255, 255, 255, 0.75);
 }
 
 *{margin: 0; padding: 0; box-sizing: border-box; font-family: 'Mitr', sans-serif;}
@@ -30,7 +29,7 @@ body {
     overflow-x: hidden;
 }
 
-/* --- อิโมจิพื้นหลังดุ๊กดิ๊ก --- */
+/* --- อิโมจิพื้นหลัง ลอยอยู่กับที่แบบนุ่มนวล --- */
 #bg-emojis {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -38,12 +37,12 @@ body {
 }
 .float-bg {
     position: absolute;
-    opacity: 0.3;
-    animation: moveAround linear infinite;
+    opacity: 0.25;
+    animation: gentleFloat 6s ease-in-out infinite alternate;
 }
-@keyframes moveAround {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    100% { transform: translate(100vw, -100vh) rotate(360deg); }
+@keyframes gentleFloat {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-30px) rotate(15deg); }
 }
 
 .container { max-width: 500px; width: 92%; padding: 40px 0 100px; position: relative; z-index: 1; }
@@ -52,48 +51,49 @@ body {
 .header-section { margin-bottom: 50px; text-align: center; position: relative; }
 .logo-container {
     position: relative;
-    width: 200px; height: 200px;
+    width: 220px; height: 220px;
     margin: 0 auto;
 }
 .logo-glow {
-    width: 110px; height: 110px;
+    width: 115px; height: 115px;
     border-radius: 50%;
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
-    /* แสงออร่าแทนขอบ */
-    box-shadow: 0 0 40px 10px var(--tiffany), 0 0 70px 20px rgba(92, 133, 214, 0.4);
+    box-shadow: 0 0 50px 15px var(--tiffany), 0 0 80px 25px rgba(92, 133, 214, 0.4);
     background: #fff;
-    overflow: hidden;
     z-index: 5;
+    display: flex; align-items: center; justify-content: center;
 }
-.logo-glow img { width: 100%; height: 100%; object-fit: cover; }
+.logo-glow img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 
 .orbit {
     position: absolute;
-    font-size: 28px;
+    font-size: 30px;
     z-index: 6;
-    animation: orbitFloat 4s ease-in-out infinite alternate;
+    animation: orbitGentle 4s ease-in-out infinite alternate;
 }
-@keyframes orbitFloat { from { transform: translateY(0); } to { transform: translateY(-20px); } }
+@keyframes orbitGentle { 
+    from { transform: scale(1) translateY(0); } 
+    to { transform: scale(1.1) translateY(-15px); } 
+}
 
-.e1 { top: 0; left: 0; }
-.e2 { top: 0; right: 0; animation-delay: 0.5s; }
-.e3 { bottom: 20px; left: -10px; animation-delay: 1s; }
-.e4 { bottom: 20px; right: -10px; animation-delay: 1.5s; }
+.e1 { top: 10%; left: 10%; }
+.e2 { top: 10%; right: 10%; animation-delay: 0.5s; }
+.e3 { bottom: 15%; left: 5%; animation-delay: 1s; }
+.e4 { bottom: 15%; right: 5%; animation-delay: 1.5s; }
 
 /* --- บล็อกไล่สี & Glassmorphism --- */
 .section {
     background: var(--glass);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(12px);
     border-radius: 35px;
     padding: 28px;
     margin-bottom: 25px;
-    box-shadow: 0 20px 45px rgba(0,0,0,0.05);
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    transition: 0.3s;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.06);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    transition: transform 0.3s ease;
 }
-.section:hover { transform: scale(1.02); }
 
 h2 { font-size: 19px; color: var(--dark-navy); margin-bottom: 22px; display: flex; align-items: center; gap: 10px; }
 
@@ -101,17 +101,13 @@ h2 { font-size: 19px; color: var(--dark-navy); margin-bottom: 22px; display: fle
 .full-width { grid-column: span 2; }
 
 input, select {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.9);
     border: 1.5px solid #eee;
     padding: 14px;
     border-radius: 18px;
-    outline: none;
-    font-size: 14px;
-    transition: 0.3s;
+    outline: none; font-size: 14px;
 }
-input:focus { border-color: var(--tiffany); box-shadow: 0 0 15px rgba(129, 230, 226, 0.3); }
 
-/* ปุ่มกดแบบจึ้งไล่สี */
 .btn-main {
     width: 100%;
     background: linear-gradient(45deg, var(--tiffany), var(--navy), var(--dark-navy));
@@ -119,30 +115,31 @@ input:focus { border-color: var(--tiffany); box-shadow: 0 0 15px rgba(129, 230, 
     color: #fff; border: none; padding: 18px; border-radius: 22px;
     font-size: 17px; font-weight: 500; margin-top: 15px; cursor: pointer;
     box-shadow: 0 10px 25px rgba(92, 133, 214, 0.3);
-    transition: 0.5s;
+    transition: 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
-.btn-main:hover { background-position: right center; transform: translateY(-3px); }
+.btn-main:hover { background-position: right center; transform: scale(1.02); }
 
-/* --- สรุปยอดเงินแบบการ์ดหรู --- */
+/* --- ผลลัพธ์สรุปยอด --- */
 .res-box {
     display: flex; justify-content: space-between; align-items: center;
     padding: 18px 25px; border-radius: 22px; margin-bottom: 12px;
-    font-weight: 500; transition: 0.3s;
+    font-weight: 500;
 }
-.res-in { background: linear-gradient(90deg, #e0f2f1, var(--tiffany)); color: #00796b; border-right: 6px solid #4db6ac; }
-.res-out { background: linear-gradient(90deg, #ffebee, var(--red)); color: #c62828; border-right: 6px solid #e57373; }
-.res-net { background: var(--grad-main); color: #fff; font-size: 22px; box-shadow: 0 10px 20px rgba(92, 133, 214, 0.2); }
+.res-in { background: #e0f2f1; color: #00796b; border-left: 6px solid var(--tiffany); }
+.res-cost { background: #fff3e0; color: #ef6c00; border-left: 6px solid #ffcc80; }
+.res-out { background: #ffebee; color: #c62828; border-left: 6px solid var(--red); }
+.res-net { background: linear-gradient(135deg, var(--navy), var(--dark-navy)); color: #fff; font-size: 22px; }
 
 .spending-detail {
     margin-top: 25px; background: rgba(255,255,255,0.4);
     border-radius: 25px; padding: 20px;
 }
 .spending-item {
-    display: flex; justify-content: space-between;
-    padding: 12px 5px; border-bottom: 1px solid rgba(0,0,0,0.05);
+    display: flex; justify-content: space-between; padding: 10px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 14px;
 }
 
-.footer-text { text-align: center; font-size: 12px; color: #999; margin-top: 50px; letter-spacing: 1px; }
+.footer-text { text-align: center; font-size: 12px; color: #999; margin-top: 50px; }
 </style>
 </head>
 <body>
@@ -160,34 +157,34 @@ input:focus { border-color: var(--tiffany); box-shadow: 0 0 15px rgba(129, 230, 
                 <img src="att.0s6x5y6gyBz3Q27JNKonjuezkpDX0Fr1zY9NUqwywz4.jpeg" alt="logo">
             </div>
         </div>
-        <h1 style="color: var(--dark-navy); font-size: 34px; margin-top: 15px; letter-spacing: -1px;">nongsorin</h1>
-        <p style="opacity: 0.5; font-size: 14px;">The Ultimate Financial Aesthetics ✨</p>
+        <h1 style="color: var(--dark-navy); font-size: 34px; margin-top: 15px;">nongsorin</h1>
+        <p style="opacity: 0.5; font-size: 14px;">The Profit Aesthetic Strategy ✨</p>
     </div>
 
     <div class="section">
-        <h2>✨ บันทึกรายการใหม่</h2>
+        <h2>✨ บันทึกใหม่</h2>
         <div class="input-grid">
-            <input type="text" id="desc" placeholder="รายการนี้คืออะไรคะ?" class="full-width">
+            <input type="text" id="desc" placeholder="รายการนี้คืออะไรจ๊ะ?" class="full-width">
             <select id="type">
-                <option value="income">รายรับ (+)</option>
-                <option value="expense">รายจ่าย (-)</option>
+                <option value="income">รายรับ (ขายได้)</option>
+                <option value="expense">รายจ่าย (ซื้อเข้า)</option>
             </select>
             <input type="date" id="date">
-            <input type="number" id="cost" placeholder="ต้นทุน">
-            <input type="number" id="price" placeholder="ยอดเงิน">
+            <input type="number" id="cost" placeholder="ต้นทุน (฿)">
+            <input type="number" id="price" placeholder="ราคาขาย/จ่ายจริง (฿)">
         </div>
-        <button onclick="addItem()" class="btn-main">บันทึกข้อมูลแบบเริดๆ 💎</button>
+        <button onclick="addItem()" class="btn-main">บันทึกความจึ้ง 💎</button>
     </div>
 
     <div class="section">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 25px;">
-            <h2>📊 บทวิเคราะห์ประจำเดือน</h2>
-            <select id="filterMonth" onchange="calculateSummary()" style="padding: 8px; border-radius: 12px; background: #fff; border: 1px solid #ddd;">
-                <option value="all">ดูทั้งหมด</option>
-                <option value="0">มกราคม</option><option value="1">กุมภาพันธ์</option><option value="2">มีนาคม</option>
-                <option value="3">เมษายน</option><option value="4">พฤษภาคม</option><option value="5">มิถุนายน</option>
-                <option value="6">กรกฎาคม</option><option value="7">สิงหาคม</option><option value="8">กันยายน</option>
-                <option value="9">ตุลาคม</option><option value="10">พฤศจิกายน</option><option value="11">ธันวาคม</option>
+            <h2>📊 กำไรที่แท้จริง</h2>
+            <select id="filterMonth" onchange="calculateSummary()" style="padding: 8px; border-radius: 12px; border: 1px solid #ddd;">
+                <option value="all">ทั้งหมด</option>
+                <option value="0">ม.ค.</option><option value="1">ก.พ.</option><option value="2">มี.ค.</option>
+                <option value="3">เม.ย.</option><option value="4">พ.ค.</option><option value="5">มิ.ย.</option>
+                <option value="6">ก.ค.</option><option value="7">ส.ค.</option><option value="8">ก.ย.</option>
+                <option value="9">ต.ค.</option><option value="10">พ.ย.</option><option value="11">ธ.ค.</option>
             </select>
         </div>
 
@@ -195,43 +192,41 @@ input:focus { border-color: var(--tiffany); box-shadow: 0 0 15px rgba(129, 230, 
             <canvas id="profitChart"></canvas>
         </div>
 
-        <div class="res-box res-in"><span>ยอดรับรวม</span><span id="sumIn">0</span></div>
-        <div class="res-box res-out"><span>ยอดจ่ายรวม</span><span id="sumOut">0</span></div>
+        <div class="res-box res-in"><span>ยอดขายรวม</span><span id="sumIn">0</span></div>
+        <div class="res-box res-cost"><span>ต้นทุนสะสม</span><span id="sumCost">0</span></div>
+        <div class="res-box res-out"><span>รายจ่ายอื่น</span><span id="sumOut">0</span></div>
         <div class="res-box res-net"><span style="font-weight: 300;">กำไรสุทธิ</span><b id="sumNet">0</b></div>
 
         <div class="spending-detail">
-            <p style="font-size: 15px; font-weight: 500; color: var(--dark-navy); margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
-                💸 รายการใช้จ่ายยอดฮิต
-            </p>
+            <p style="font-size: 15px; font-weight: 500; color: var(--dark-navy); margin-bottom: 12px;">💸 รายจ่ายแยกรายการ</p>
             <div id="spendList"></div>
         </div>
     </div>
 
     <div class="section">
-        <h2>📅 ประวัติที่ผ่านมา</h2>
+        <h2>📅 ประวัติย้อนหลัง</h2>
         <div id="displayList"></div>
     </div>
 
-    <p class="footer-text">DESIGNED BY NONGSORIN • 2026</p>
+    <p class="footer-text">CREATED BY NONGSORIN • 2026</p>
 </div>
 
 <script>
-    // --- สุ่มสร้างอิโมจิพื้นหลัง ---
+    // --- สร้างอิโมจิพื้นหลัง ลอยนิ่งๆ ---
     const bgContainer = document.getElementById('bg-emojis');
     const emojis = ['🌸', '✨', '💎', '🐳', '💧', '🫧'];
-    for(let i=0; i<15; i++) {
+    for(let i=0; i<12; i++) {
         let span = document.createElement('span');
         span.className = 'float-bg';
         span.innerText = emojis[Math.floor(Math.random()*emojis.length)];
         span.style.left = Math.random()*100 + 'vw';
         span.style.top = Math.random()*100 + 'vh';
-        span.style.fontSize = Math.random()*20 + 10 + 'px';
-        span.style.animationDuration = Math.random()*10 + 15 + 's';
+        span.style.fontSize = Math.random()*15 + 15 + 'px';
         span.style.animationDelay = Math.random()*5 + 's';
         bgContainer.appendChild(span);
     }
 
-    let transactions = JSON.parse(localStorage.getItem('sorin_ultra_v1')) || [];
+    let transactions = JSON.parse(localStorage.getItem('sorin_profit_v1')) || [];
     let myChart = null;
 
     function addItem() {
@@ -241,10 +236,10 @@ input:focus { border-color: var(--tiffany); box-shadow: 0 0 15px rgba(129, 230, 
         const cost = parseFloat(document.getElementById('cost').value) || 0;
         const price = parseFloat(document.getElementById('price').value) || 0;
 
-        if(!desc || !date || price <= 0) return alert('รบกวนกรอกรายละเอียดให้ครบถ้วนก่อนนะคะ ✨');
+        if(!desc || !date || price <= 0) return alert('กรอกข้อมูลให้ครบก่อนนะจ๊ะ ✨');
 
         transactions.push({ desc, type, date, cost, price });
-        localStorage.setItem('sorin_ultra_v1', JSON.stringify(transactions));
+        localStorage.setItem('sorin_profit_v1', JSON.stringify(transactions));
         
         document.getElementById('desc').value = '';
         document.getElementById('cost').value = '';
@@ -258,7 +253,7 @@ input:focus { border-color: var(--tiffany); box-shadow: 0 0 15px rgba(129, 230, 
         const spendDiv = document.getElementById('spendList');
         listDiv.innerHTML = ''; spendDiv.innerHTML = '';
         
-        let tIn = 0, tOut = 0;
+        let tIn = 0, tCost = 0, tOtherOut = 0;
         let expenseMap = {};
 
         [...transactions].sort((a,b) => new Date(b.date) - new Date(a.date)).forEach(item => {
@@ -268,55 +263,54 @@ input:focus { border-color: var(--tiffany); box-shadow: 0 0 15px rgba(129, 230, 
             if(isMatch) {
                 if(item.type === 'income') {
                     tIn += item.price;
+                    tCost += item.cost; // ต้นทุนของสิ่งที่ขายได้
                 } else {
-                    const totalCost = item.price + item.cost;
-                    tOut += totalCost;
-                    expenseMap[item.desc] = (expenseMap[item.desc] || 0) + totalCost;
+                    tOtherOut += item.price; // รายจ่ายจิปาถะอื่นๆ
+                    expenseMap[item.desc] = (expenseMap[item.desc] || 0) + item.price;
                 }
 
                 listDiv.innerHTML += `
                     <div style="display:flex; justify-content:space-between; padding: 15px 0; border-bottom: 1px solid rgba(0,0,0,0.03);">
-                        <span><b>${item.desc}</b><br><small style="color:#aaa">${item.date}</small></span>
-                        <span style="color:${item.type==='income'?'#4db6ac':'#e57373'}; font-weight:500;">
-                            ${item.type==='income'?'+':'-'}${item.price.toLocaleString()} ฿
+                        <span><b>${item.desc}</b><br><small style="color:#aaa">ทุน: ${item.cost} | ยอด: ${item.price}</small></span>
+                        <span style="color:${item.type==='income'?'#00796b':'#e57373'}; font-weight:500;">
+                            ${item.type==='income'?'+':'-'}${item.price.toLocaleString()}
                         </span>
                     </div>`;
             }
         });
 
         Object.entries(expenseMap).sort((a,b) => b[1] - a[1]).slice(0, 5).forEach(([name, val]) => {
-            spendDiv.innerHTML += `
-                <div class="spending-item">
-                    <span>${name}</span>
-                    <b style="color:var(--red)">-${val.toLocaleString()} ฿</b>
-                </div>`;
+            spendDiv.innerHTML += `<div class="spending-item"><span>${name}</span><b>-${val.toLocaleString()}</b></div>`;
         });
 
         document.getElementById('sumIn').innerText = tIn.toLocaleString() + ' ฿';
-        document.getElementById('sumOut').innerText = tOut.toLocaleString() + ' ฿';
-        const net = tIn - tOut;
+        document.getElementById('sumCost').innerText = tCost.toLocaleString() + ' ฿';
+        document.getElementById('sumOut').innerText = tOtherOut.toLocaleString() + ' ฿';
+        
+        // สูตร: ราคาขาย - (ต้นทุนสินค้า + รายจ่ายอื่น)
+        const net = tIn - (tCost + tOtherOut);
         document.getElementById('sumNet').innerText = net.toLocaleString() + ' ฿';
         
-        updateChart(tIn, tOut, net);
-        if(!listDiv.innerHTML) listDiv.innerHTML = '<p style="text-align:center; padding:20px; opacity:0.3;">ไม่มีรายการจ้ะ</p>';
+        updateChart(tIn, tCost, tOtherOut);
+        if(!listDiv.innerHTML) listDiv.innerHTML = '<p style="text-align:center; padding:20px; opacity:0.3;">ยังไม่มีข้อมูลจ้ะ</p>';
     }
 
-    function updateChart(inc, out, net) {
+    function updateChart(inc, cst, out) {
         const ctx = document.getElementById('profitChart').getContext('2d');
         if (myChart) myChart.destroy();
         myChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: ['รายรับ', 'รายจ่าย', 'กำไร'],
+                labels: ['ยอดขาย', 'ต้นทุนสินค้า', 'รายจ่ายอื่น'],
                 datasets: [{
-                    data: [inc, out, net > 0 ? net : 0],
-                    backgroundColor: ['#81e6e2', '#f28d8d', '#5c85d6'],
-                    borderWidth: 8,
-                    borderColor: 'rgba(255,255,255,0.8)',
-                    hoverOffset: 15
+                    data: [inc, cst, out],
+                    backgroundColor: ['#81e6e2', '#ffcc80', '#f28d8d'],
+                    borderWidth: 6,
+                    borderColor: 'rgba(255,255,255,0.6)',
+                    hoverOffset: 12
                 }]
             },
-            options: { cutout: '70%', plugins: { legend: { display: false } } }
+            options: { cutout: '75%', plugins: { legend: { display: false } } }
         });
     }
 
