@@ -22,14 +22,15 @@
 body {
     min-height: 100vh;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center; /* จัดกึ่งกลางแนวนอน */
     background: linear-gradient(135deg, #e0f2f1 0%, #e8eaf6 50%, #fce4ec 100%);
     background-attachment: fixed;
     color: #333;
     overflow-x: hidden;
 }
 
-/* --- อิโมจิพื้นหลัง (จัดสมดุลซ้าย-ขวา) --- */
+/* --- อิโมจิพื้นหลัง --- */
 #bg-emojis {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
@@ -45,10 +46,25 @@ body {
     100% { transform: translateY(-30px) rotate(10deg); }
 }
 
-.container { max-width: 500px; width: 92%; padding: 40px 0 100px; position: relative; z-index: 1; }
+/* จัดกึ่งกลาง Container */
+.container { 
+    max-width: 500px; 
+    width: 92%; 
+    padding: 40px 0 100px; 
+    margin: 0 auto;
+    position: relative; 
+    z-index: 1; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-/* --- ส่วนโลโก้ หัวใจเล็กใหญ่ --- */
-.header-section { margin-bottom: 50px; text-align: center; position: relative; }
+/* --- ส่วนโลโก้ --- */
+.header-section { 
+    margin-bottom: 50px; 
+    text-align: center; 
+    width: 100%;
+}
 .logo-container {
     position: relative;
     width: 200px; height: 200px;
@@ -82,6 +98,7 @@ body {
 .e4 { bottom: 12%; right: 12%; font-size: 32px; animation-delay: 0.4s; } 
 
 .section {
+    width: 100%; /* ให้เต็มความกว้าง container */
     background: var(--glass);
     backdrop-filter: blur(12px);
     border-radius: 35px;
@@ -89,11 +106,17 @@ body {
     margin-bottom: 25px;
     box-shadow: 0 15px 35px rgba(0,0,0,0.05);
     border: 1px solid rgba(255, 255, 255, 0.6);
+    text-align: center; /* จัดเนื้อหากึ่งกลาง */
 }
 
 h2 { font-size: 18px; color: var(--dark-navy); margin-bottom: 20px; font-weight: 500; }
 
-.input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.input-grid { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 12px; 
+    justify-content: center;
+}
 .full-width { grid-column: span 2; }
 
 input, select {
@@ -102,6 +125,7 @@ input, select {
     padding: 12px;
     border-radius: 15px;
     outline: none; font-size: 14px;
+    text-align: center; /* ตัวอักษรใน input กึ่งกลาง */
 }
 
 .btn-main {
@@ -115,7 +139,7 @@ input, select {
 }
 .btn-main:hover { background-position: right center; transform: translateY(-2px); }
 
-.btn-group { display: flex; gap: 10px; margin-top: 20px; }
+.btn-group { display: flex; gap: 10px; margin-top: 20px; width: 100%; }
 .btn-sub {
     flex: 1; padding: 12px; border-radius: 15px; border: none; 
     font-size: 13px; cursor: pointer; transition: 0.3s;
@@ -139,11 +163,14 @@ input, select {
 .spending-detail {
     margin-top: 25px; background: rgba(255,255,255,0.4);
     border-radius: 20px; padding: 18px;
+    text-align: left; /* รายการรายจ่ายคงไว้ทางซ้ายเพื่อให้อ่านง่าย */
 }
 .spending-item {
     display: flex; justify-content: space-between; padding: 10px 0;
     border-bottom: 1px solid rgba(0,0,0,0.05); font-size: 14px;
 }
+
+#displayList { text-align: left; } /* ประวัติรายการคงไว้ทางซ้าย */
 
 .footer-text { text-align: center; font-size: 11px; color: #999; margin-top: 50px; opacity: 0.7; }
 </style>
@@ -184,8 +211,8 @@ input, select {
 
     <div class="section">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 22px;">
-            <h2>📊 บทสรุปกำไร</h2>
-            <select id="filterMonth" onchange="calculateSummary()" style="padding: 6px; border-radius: 10px; border: 1px solid #eee; font-size: 12px;">
+            <h2 style="margin-bottom:0">📊 บทสรุปกำไร</h2>
+            <select id="filterMonth" onchange="calculateSummary()" style="padding: 6px; border-radius: 10px; border: 1px solid #eee; font-size: 12px; min-width: 80px;">
                 <option value="all">ทั้งหมด</option>
                 <option value="0">ม.ค.</option><option value="1">ก.พ.</option><option value="2">มี.ค.</option>
                 <option value="3">เม.ย.</option><option value="4">พ.ค.</option><option value="5">มิ.ย.</option>
@@ -201,7 +228,7 @@ input, select {
         <div class="res-box res-out"><span>รายจ่ายอื่น</span><span id="sumOut">0 ฿</span></div>
         <div class="res-box res-net"><span>กำไรสุทธิ</span><span id="sumNet">0 ฿</span></div>
         <div class="spending-detail">
-            <p style="font-size: 14px; font-weight: 500; color: var(--dark-navy); margin-bottom: 10px;">💸 รายจ่ายสะสม</p>
+            <p style="font-size: 14px; font-weight: 500; color: var(--dark-navy); margin-bottom: 10px; text-align: center;">💸 รายจ่ายสะสม</p>
             <div id="spendList"></div>
         </div>
     </div>
@@ -218,23 +245,17 @@ input, select {
 </div>
 
 <script>
-    // --- แก้ไขระบบพื้นหลังให้สมดุลซ้าย-ขวา ---
     const bgContainer = document.getElementById('bg-emojis');
     function createBalancedBg() {
         const sides = ['left', 'right'];
         sides.forEach(side => {
-            for(let i=0; i<4; i++) { // ฝั่งละ 4 ดวง รวมเป็น 8
+            for(let i=0; i<4; i++) {
                 let span = document.createElement('span');
                 span.className = 'float-bg';
                 span.innerText = '🩵';
-                
-                // สุ่มตำแหน่ง X ตามฝั่งที่กำหนด
-                let xPos = side === 'left' ? Math.random() * 35 : Math.random() * 35 + 65;
+                let xPos = side === 'left' ? Math.random() * 30 : Math.random() * 30 + 70;
                 span.style.left = xPos + 'vw';
-                
-                // สุ่มตำแหน่ง Y ให้กระจายทั่วจอ
                 span.style.top = Math.random() * 90 + 5 + 'vh';
-                
                 span.style.fontSize = Math.random() * 15 + 12 + 'px';
                 span.style.animationDelay = Math.random() * 5 + 's';
                 bgContainer.appendChild(span);
