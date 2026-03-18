@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>nongsorin - รายรับรายจ่าย 📈</title>
+<title>nongsorin - Bright Expense Tracker 📈</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 :root {
-    --tiffany: #0abab5;
-    --navy: #002d5e;
-    --red: #e63946;
-    --white: rgba(255, 255, 255, 0.92);
+    --tiffany: #0df2e9; /* Tiffany แบบสว่างวาบ */
+    --navy: #0056ff;    /* น้ำเงินสดใส (Royal Blue) ไม่มืด */
+    --red: #ff3b3b;     /* แดงสดใส */
+    --glass: rgba(255, 255, 255, 0.95);
 }
 
 *{margin: 0; padding: 0; box-sizing: border-box; font-family: 'Mitr', sans-serif;}
@@ -22,131 +22,124 @@ body {
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    /* พื้นหลังเบนสี แดง น้ำเงิน Tiffany ฟุ้งๆ */
+    /* พื้นหลังแบบสว่างสดใส ไม่หม่นหมอง */
     background: 
-        radial-gradient(at 0% 0%, rgba(10, 186, 181, 0.4) 0px, transparent 50%),
-        radial-gradient(at 50% 0%, rgba(230, 57, 70, 0.3) 0px, transparent 50%),
-        radial-gradient(at 100% 0%, rgba(0, 45, 94, 0.4) 0px, transparent 50%),
-        radial-gradient(at 0% 100%, rgba(230, 57, 70, 0.2) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(10, 186, 181, 0.3) 0px, transparent 50%);
-    background-color: #f8f9fa;
+        radial-gradient(at 0% 0%, rgba(13, 242, 233, 0.2) 0px, transparent 40%),
+        radial-gradient(at 100% 0%, rgba(0, 86, 255, 0.15) 0px, transparent 40%),
+        radial-gradient(at 50% 50%, rgba(255, 59, 59, 0.1) 0px, transparent 50%),
+        linear-gradient(180deg, #ffffff 0%, #f0f7ff 100%);
     background-attachment: fixed;
-    position: relative;
-    color: var(--navy);
+    color: #1a1a1a;
 }
 
-/* อิโมจิฟุ้งๆ */
+/* อิโมจิฟุ้งๆ สีสด */
 .bg-emoji {
     position: fixed;
     z-index: -1;
-    opacity: 0.3;
-    animation: floatEmoji 12s linear infinite;
+    opacity: 0.5;
+    animation: floatEmoji 10s linear infinite;
 }
 
 @keyframes floatEmoji {
-    0% { transform: translateY(110vh) rotate(0deg); }
-    100% { transform: translateY(-15vh) rotate(360deg); }
+    0% { transform: translateY(110vh) scale(0.8); }
+    100% { transform: translateY(-15vh) scale(1.2); }
 }
 
 .container {
     max-width: 500px;
     width: 92%;
-    padding: 40px 0 100px;
+    padding: 30px 0 80px;
 }
 
-.header-section { margin-bottom: 30px; text-align: center; }
+.header-section { margin-bottom: 25px; text-align: center; }
 .logo {
-    width: 110px; height: 110px;
+    width: 100px; height: 100px;
     border-radius: 50%;
-    margin: 0 auto 20px;
-    border: 4px solid #fff;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
-    overflow: hidden;
+    margin: 0 auto 15px;
+    border: 3px solid #fff;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    background: #fff;
 }
-.logo img { width: 100%; height: 100%; object-fit: cover; }
+.logo img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
 
-h1 { font-weight: 500; font-size: 34px; margin-bottom: 5px; color: var(--navy); letter-spacing: 1px; }
-.subtitle { font-weight: 400; font-size: 16px; color: var(--navy); opacity: 0.8; }
+h1 { font-weight: 500; font-size: 32px; color: var(--navy); text-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+.subtitle { font-weight: 400; font-size: 15px; color: #555; }
 
-/* กล่องข้อความ แกรม มินิมอล */
+/* กล่องสีขาวสะอาดตา */
 .section {
-    background: var(--white);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border-radius: 35px;
-    padding: 25px;
-    margin-bottom: 25px;
-    border: 1px solid rgba(255,255,255,0.7);
-    box-shadow: 0 15px 45px rgba(0,0,0,0.06);
+    background: var(--glass);
+    border-radius: 30px;
+    padding: 22px;
+    margin-bottom: 20px;
+    border: 1px solid #ffffff;
+    box-shadow: 0 12px 30px rgba(0, 86, 255, 0.08);
 }
 
-h2 { font-size: 18px; font-weight: 500; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; color: var(--navy); }
+h2 { font-size: 17px; font-weight: 500; margin-bottom: 18px; color: var(--navy); display: flex; align-items: center; gap: 8px; }
 
-/* Input */
-.input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+/* Input สว่างๆ */
+.input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 .full-width { grid-column: span 2; }
 
 input, select {
-    background: rgba(255,255,255,0.8);
-    border: 1.5px solid rgba(0,0,0,0.05);
-    padding: 12px 15px;
-    border-radius: 18px;
+    background: #f8fbff;
+    border: 1.5px solid #edf2f9;
+    padding: 12px;
+    border-radius: 15px;
     outline: none;
     font-size: 14px;
     transition: 0.3s;
 }
-input:focus { border-color: var(--tiffany); box-shadow: 0 0 10px rgba(10,186,181,0.2); }
+input:focus { border-color: var(--tiffany); background: #fff; box-shadow: 0 0 12px rgba(13, 242, 233, 0.2); }
 
-/* ปุ่มหลัก สีน้ำเงินแกรม */
+/* ปุ่มสีน้ำเงินสด */
 .btn-main {
     width: 100%;
-    background: linear-gradient(135deg, var(--navy) 0%, #004b9e 100%);
+    background: linear-gradient(135deg, var(--navy) 0%, #3a86ff 100%);
     color: #fff;
     border: none;
-    padding: 16px;
-    border-radius: 22px;
+    padding: 15px;
+    border-radius: 18px;
     font-size: 16px;
     font-weight: 500;
-    margin-top: 15px;
+    margin-top: 12px;
     cursor: pointer;
-    box-shadow: 0 8px 25px rgba(0,45,94,0.3);
-    transition: 0.3s;
+    box-shadow: 0 6px 15px rgba(0, 86, 255, 0.25);
 }
-.btn-main:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0,45,94,0.4); }
+.btn-main:active { transform: scale(0.98); }
 
-/* สถิติรายรับรายจ่าย */
-.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
+/* สถิติรายรับรายจ่ายแบบ Bright */
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 20px; }
 .stat-box {
     background: #fff;
-    padding: 20px;
-    border-radius: 28px;
+    padding: 15px;
+    border-radius: 20px;
     text-align: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.03);
-    border: 1px solid rgba(0,0,0,0.02);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
 }
-.stat-label { font-size: 12px; opacity: 0.6; display: block; margin-bottom: 5px; }
-.stat-value { font-size: 20px; font-weight: 500; }
+.stat-label { font-size: 11px; color: #888; display: block; margin-bottom: 4px; }
+.stat-value { font-size: 18px; font-weight: 500; color: var(--navy); }
 
 .result-row {
-    display: flex; justify-content: space-between; padding: 16px 20px;
-    border-radius: 22px; margin-bottom: 12px; font-size: 15px;
+    display: flex; justify-content: space-between; padding: 14px 18px;
+    border-radius: 18px; margin-bottom: 10px; font-size: 14px;
 }
-.row-income { background: rgba(10, 186, 181, 0.12); color: #00897b; border: 1px solid rgba(10, 186, 181, 0.2); }
-.row-expense { background: rgba(230, 57, 70, 0.08); color: var(--red); border: 1px solid rgba(230, 57, 70, 0.15); }
-.row-profit { background: var(--navy); color: #fff; margin-top: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+.row-income { background: #e6fffe; color: #00a89d; border: 1px solid #ccfcf9; }
+.row-expense { background: #fff2f2; color: var(--red); border: 1px solid #ffe5e5; }
+.row-profit { background: var(--navy); color: #fff; box-shadow: 0 8px 20px rgba(0, 86, 255, 0.2); }
 
-/* ประวัติ */
+/* ประวัติรายการ */
 .item-card {
     display: flex; justify-content: space-between; align-items: center;
-    padding: 18px 5px; border-bottom: 1.5px solid rgba(0,0,0,0.03);
+    padding: 15px 5px; border-bottom: 1px solid #f0f4f8;
 }
 .item-card:last-child { border: none; }
-.item-info b { font-weight: 500; color: var(--navy); font-size: 15px; }
-.item-info small { display: block; font-size: 11px; opacity: 0.5; margin-top: 2px; }
+.item-info b { font-weight: 500; font-size: 14px; }
+.item-info small { display: block; font-size: 11px; color: #aaa; }
 
-.chart-container { margin: 10px auto 25px; max-width: 210px; }
+.chart-container { margin: 5px auto 15px; max-width: 180px; }
 
-.footer-text { text-align: center; font-size: 11px; opacity: 0.4; margin-top: 50px; letter-spacing: 1px; }
+.footer-text { text-align: center; font-size: 11px; color: #ccc; margin-top: 30px; }
 </style>
 </head>
 <body>
@@ -159,58 +152,58 @@ input:focus { border-color: var(--tiffany); box-shadow: 0 0 10px rgba(10,186,181
             <img src="att.0s6x5y6gyBz3Q27JNKonjuezkpDX0Fr1zY9NUqwywz4.jpeg" alt="logo">
         </div>
         <h1>nongsorin</h1>
-        <p class="subtitle">บันทึกรายรับรายจ่าย ให้ชีวิตมีสมดุล 📈✨</p>
+        <p class="subtitle">บันทึกรายรับรายจ่าย แบบคลีนๆ 🌸✨</p>
         
         <div class="stats-grid">
-            <div class="stat-box" style="border-bottom: 4px solid var(--tiffany);">
-                <span class="stat-label">กำไรสะสมเดือนนี้</span>
+            <div class="stat-box" style="border-top: 3px solid var(--tiffany);">
+                <span class="stat-label">กำไรเดือนนี้</span>
                 <span id="badge-month" class="stat-value">0 ฿</span>
             </div>
-            <div class="stat-box" style="border-bottom: 4px solid var(--navy);">
-                <span class="stat-label">ยอดรวมรายปี 2026</span>
+            <div class="stat-box" style="border-top: 3px solid var(--navy);">
+                <span class="stat-label">ยอดรวมปี 2026</span>
                 <span id="badge-year" class="stat-value">0 ฿</span>
             </div>
         </div>
     </div>
 
     <div class="section">
-        <h2>📝 เพิ่มรายการรายรับรายจ่าย</h2>
+        <h2>📝 จดบันทึกวันนี้</h2>
         <div class="input-grid">
-            <input type="text" id="desc" placeholder="เช่น ค่าข้าว, รายได้ขายของ..." class="full-width">
+            <input type="text" id="desc" placeholder="รายการของคุณ..." class="full-width">
             <select id="type">
-                <option value="income">➕ รายรับ (เงินเข้า)</option>
-                <option value="expense">➖ รายจ่าย (เงินออก)</option>
+                <option value="income">💰 รายรับ (เงินเข้า)</option>
+                <option value="expense">💸 รายจ่าย (เงินออก)</option>
             </select>
             <input type="date" id="date">
-            <input type="number" id="cost" placeholder="ต้นทุน/จ่ายจริง">
-            <input type="number" id="price" placeholder="ราคาขาย/รับเงิน">
+            <input type="number" id="cost" placeholder="ต้นทุน">
+            <input type="number" id="price" placeholder="ราคา/ยอดเงิน">
         </div>
-        <button onclick="addItem()" class="btn-main">บันทึกข้อมูลลงสมุด ✨</button>
+        <button onclick="addItem()" class="btn-main">บันทึกข้อมูล ✨</button>
     </div>
 
     <div class="section">
-        <h2>📊 สรุปภาพรวมการเงิน</h2>
+        <h2>📊 สรุปการเงิน</h2>
         <div class="chart-container">
             <canvas id="profitChart"></canvas>
         </div>
         <div class="result-row row-income">
-            <span>รายรับทั้งหมด (+)</span>
-            <span id="sumIn" style="font-weight: 600;">0 ฿</span>
+            <span>รายรับรวม</span>
+            <span id="sumIn" style="font-weight: 500;">0 ฿</span>
         </div>
         <div class="result-row row-expense">
-            <span>รายจ่ายทั้งหมด (-)</span>
-            <span id="sumOut" style="font-weight: 600;">0 ฿</span>
+            <span>รายจ่ายรวม</span>
+            <span id="sumOut" style="font-weight: 500;">0 ฿</span>
         </div>
         <div class="result-row row-profit">
-            <span style="font-weight: 300;">กำไรสุทธิคงเหลือ</span>
-            <span id="sumNet" style="font-size: 20px; font-weight: 500;">0 ฿</span>
+            <span>กำไรสุทธิ</span>
+            <span id="sumNet" style="font-size: 18px; font-weight: 500;">0 ฿</span>
         </div>
     </div>
 
     <div class="section">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 15px;">
             <h2 style="margin:0;">📅 ประวัติรายการ</h2>
-            <select id="filterMonth" onchange="calculateSummary()" style="padding: 6px 10px; border-radius: 12px; font-size: 12px; border: 1px solid #ddd;">
+            <select id="filterMonth" onchange="calculateSummary()" style="padding: 5px; border-radius: 10px; font-size: 11px;">
                 <option value="all">ทุกเดือน</option>
                 <option value="0">มกราคม</option><option value="1">กุมภาพันธ์</option>
                 <option value="2">มีนาคม</option><option value="3">เมษายน</option>
@@ -221,28 +214,27 @@ input:focus { border-color: var(--tiffany); box-shadow: 0 0 10px rgba(10,186,181
             </select>
         </div>
         <div id="displayList"></div>
-        <p onclick="clearData()" style="text-align:center; font-size:10px; color:#bbb; margin-top:30px; cursor:pointer; text-decoration: underline; letter-spacing: 1px;">ล้างข้อมูลทั้งหมด</p>
+        <p onclick="clearData()" style="text-align:center; font-size:10px; color:#ddd; margin-top:20px; cursor:pointer; text-decoration: underline;">ล้างข้อมูล</p>
     </div>
 
-    <p class="footer-text">DESIGNED FOR NONGSORIN • 2026</p>
+    <p class="footer-text">DESIGNED BY NONGSORIN • 2026</p>
 </div>
 
 <script>
-    // สุ่มอิโมจิพื้นหลัง
-    const emojis = ['🦋', 'Ⓜ️', '🐳', '✨', '🐠'];
+    const emojis = ['🦋', '✨', '🎈', '💸', '💎'];
     function createEmoji() {
         const e = document.createElement('div');
         e.className = 'bg-emoji';
         e.innerText = emojis[Math.floor(Math.random() * emojis.length)];
         e.style.left = Math.random() * 100 + 'vw';
-        e.style.fontSize = (Math.random() * 20 + 15) + 'px';
-        e.style.animationDuration = (Math.random() * 7 + 7) + 's';
+        e.style.fontSize = (Math.random() * 20 + 10) + 'px';
+        e.style.animationDuration = (Math.random() * 5 + 5) + 's';
         document.getElementById('emoji-container').appendChild(e);
-        setTimeout(() => e.remove(), 12000);
+        setTimeout(() => e.remove(), 10000);
     }
-    setInterval(createEmoji, 3000);
+    setInterval(createEmoji, 2000);
 
-    let transactions = JSON.parse(localStorage.getItem('glam_tracker_data_v2')) || [];
+    let transactions = JSON.parse(localStorage.getItem('bright_tracker_v1')) || [];
     let myChart = null;
 
     function addItem() {
@@ -252,10 +244,10 @@ input:focus { border-color: var(--tiffany); box-shadow: 0 0 10px rgba(10,186,181
         const cost = parseFloat(document.getElementById('cost').value) || 0;
         const price = parseFloat(document.getElementById('price').value) || 0;
 
-        if(!desc || !date) return alert('กรุณาระบุรายละเอียดและวันที่ให้ครบถ้วนนะคะ ✨');
+        if(!desc || !date) return alert('ใส่ข้อมูลให้ครบก่อนนะจ๊ะ ✨');
 
         transactions.push({ desc, type, date, cost, price });
-        localStorage.setItem('glam_tracker_data_v2', JSON.stringify(transactions));
+        localStorage.setItem('bright_tracker_v1', JSON.stringify(transactions));
         
         document.getElementById('desc').value = '';
         document.getElementById('cost').value = '';
@@ -285,9 +277,9 @@ input:focus { border-color: var(--tiffany); box-shadow: 0 0 10px rgba(10,186,181
                     <div class="item-card">
                         <div class="item-info">
                             <b>${item.desc}</b>
-                            <small>${d.toLocaleDateString('th-TH', {day:'numeric', month:'long'})}</small>
+                            <small>${d.toLocaleDateString('th-TH', {day:'numeric', month:'short'})}</small>
                         </div>
-                        <div style="text-align:right; font-weight:600; color:${profit>=0?'#00897b':'#e63946'}">
+                        <div style="text-align:right; font-weight:500; color:${profit>=0?'#00a89d':'#ff3b3b'}">
                             ${profit > 0 ? '+' : ''}${profit.toLocaleString()} ฿
                         </div>
                     </div>`;
@@ -302,7 +294,7 @@ input:focus { border-color: var(--tiffany); box-shadow: 0 0 10px rgba(10,186,181
         document.getElementById('badge-year').innerText = yNet.toLocaleString() + ' ฿';
         
         updateChart(tIn, tOut, net);
-        if(!listDiv.innerHTML) listDiv.innerHTML = '<p style="text-align:center; opacity:0.3; font-size:12px; padding:20px;">ไม่มีข้อมูลในช่วงเวลานี้</p>';
+        if(!listDiv.innerHTML) listDiv.innerHTML = '<p style="text-align:center; opacity:0.3; font-size:12px; padding:10px;">ไม่มีรายการจ้ะ</p>';
     }
 
     function updateChart(inc, out, net) {
@@ -311,19 +303,18 @@ input:focus { border-color: var(--tiffany); box-shadow: 0 0 10px rgba(10,186,181
         myChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: ['รายรับ', 'รายจ่าย', 'กำไรสุทธิ'],
+                labels: ['รายรับ', 'รายจ่าย', 'กำไร'],
                 datasets: [{
                     data: [inc, out, net > 0 ? net : 0],
-                    backgroundColor: ['#0abab5', '#e63946', '#002d5e'],
-                    borderWidth: 0,
-                    hoverOffset: 10
+                    backgroundColor: ['#0df2e9', '#ff3b3b', '#0056ff'],
+                    borderWidth: 0
                 }]
             },
-            options: { cutout: '82%', plugins: { legend: { display: false } } }
+            options: { cutout: '80%', plugins: { legend: { display: false } } }
         });
     }
 
-    function clearData() { if(confirm('ต้องการล้างประวัติรายรับรายจ่ายทั้งหมดใช่ไหม?')) { transactions = []; localStorage.clear(); calculateSummary(); } }
+    function clearData() { if(confirm('จะลบจริงเหรอ? ข้อมูลหายหมดเลยนะ')) { transactions = []; localStorage.clear(); calculateSummary(); } }
     
     document.getElementById('date').valueAsDate = new Date();
     calculateSummary();
