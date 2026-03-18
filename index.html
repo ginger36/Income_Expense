@@ -3,229 +3,314 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>nongsorin - รายรับ รายจ่าย</title>
+<title>nongsorin - Balanced Tracker 📈</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <style>
 :root {
-/* ปรับโทนสีตามบรีฟ: แดง, น้ำเงิน, ฟ้า Tiffany */
---bg: #f0faff; 
---main: #0abab5; /* Tiffany Blue */
---dark: #0056b3; /* Dark Blue */
---accent: #e63946; /* Red */
---white: #ffffff;
---glow: rgba(10, 186, 181, 0.3);
+    --tiffany: #81e6e2;  
+    --navy: #5c85d6;     
+    --red: #f28d8d;      
+    --text: #4a5568;
+    --bg-white: rgba(255, 255, 255, 0.9);
+    --glow-color: rgba(129, 230, 226, 0.4); 
 }
 
 *{margin: 0; padding: 0; box-sizing: border-box; font-family: 'Mitr', sans-serif;}
 
 body {
-background: var(--bg);
-display: flex;
-justify-content: center;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(135deg, #fdfcfb 0%, #eef2f3 100%);
+    background-attachment: fixed;
+    color: var(--text);
+    overflow-x: hidden;
 }
 
-.container{
-max-width: 500px;
-width: 100%;
-padding: 20px 15px 40px;
+/* --- อิโมจิพื้นหลัง (ลดจำนวนและความเข้มลง) --- */
+#emoji-container {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1; pointer-events: none;
+}
+.floating-emoji {
+    position: absolute;
+    opacity: 0.2; /* จางลง */
+    animation: floatEmoji linear infinite;
+}
+@keyframes floatEmoji {
+    0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+    20% { opacity: 0.2; }
+    80% { opacity: 0.2; }
+    100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
 }
 
+.container {
+    max-width: 500px;
+    width: 92%;
+    padding: 40px 0 100px;
+}
+
+/* --- ส่วนโลโก้และอิโมจิรอบๆ --- */
+.header-section { 
+    margin-bottom: 40px; 
+    text-align: center; 
+    position: relative; 
+    padding-top: 20px;
+}
+
+.logo-container {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin: 0 auto;
+}
+
+.logo {
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    background: #fff;
+    box-shadow: 0 0 20px var(--glow-color);
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+.logo img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+
+/* อิโมจิรอบโลโก้ */
+.orbit {
+    position: absolute;
+    font-size: 22px;
+    animation: bounce 3s ease-in-out infinite alternate;
+}
+@keyframes bounce {
+    from { transform: translateY(0px); }
+    to { transform: translateY(-10px); }
+}
+
+.e1 { top: -5px; left: 10px; animation-delay: 0s; }
+.e2 { top: -5px; right: 10px; animation-delay: 0.5s; }
+.e3 { bottom: 5px; left: 10px; animation-delay: 1s; }
+.e4 { bottom: 5px; right: 10px; animation-delay: 1.5s; }
+
+/* --- UI ส่วนเนื้อหา --- */
 .section {
-background: var(--white);
-border-radius: 20px;
-padding: 25px 20px;
-margin-bottom: 20px;
-box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-border: 2px solid var(--main);
+    background: var(--bg-white);
+    backdrop-filter: blur(10px);
+    border-radius: 30px;
+    padding: 25px;
+    margin-bottom: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
 }
 
-h1,h2,h3{color: var(--dark);}
-.center {text-align: center;}
+h2 { font-size: 16px; font-weight: 500; margin-bottom: 20px; color: var(--navy); display: flex; align-items: center; gap: 8px; }
 
-.logo{
-width: 150px; height: 150px;
-border-radius: 50%;
-overflow: hidden;
-margin: 0 auto 20px;
-box-shadow: 0 6px 20px var(--glow);
-border: 3px solid var(--main);
+.input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.full-width { grid-column: span 2; }
+
+input, select {
+    background: #fff; border: 1px solid #eee; padding: 12px; border-radius: 15px; outline: none; font-size: 14px;
 }
 
-.logo img {width: 100%; height: 100%; object-fit: cover;}
-
-.badges{
-display: flex;
-flex-wrap: wrap;
-justify-content: center;
-gap: 10px;
-margin-bottom: 20px;
+.btn-main {
+    width: 100%; background: linear-gradient(135deg, var(--navy), var(--tiffany));
+    color: #fff; border: none; padding: 15px; border-radius: 18px; margin-top: 15px; cursor: pointer;
 }
 
-.badge{
-background: var(--white);
-padding: 8px 16px;
-border-radius: 25px;
-box-shadow: 0 4px 10px var(--glow);
-font-size: 13px;
-color: var(--dark);
-border: 1px solid var(--main);
+.result-row { 
+    display: flex; justify-content: space-between; padding: 15px 20px; 
+    border-radius: 20px; margin-bottom: 10px; font-size: 14px; 
 }
+.row-income { background: #f0fff4; color: #48bb78; } 
+.row-expense { background: #fff5f5; color: #f56565; } 
+.row-profit { background: var(--navy); color: #fff; }
 
-.btn{
-display: block;
-text-align: center;
-padding: 14px;
-border-radius: 25px;
-text-decoration: none;
-margin-top: 15px;
-font-weight: 500;
-transition: 0.3s;
-}
+.item-card { display: flex; justify-content: space-between; padding: 12px 5px; border-bottom: 1px solid #f7f7f7; }
 
-.btn-outline {
-background: transparent;
-border: 2px dashed var(--main);
-color: var(--dark);
-}
+.chart-container { margin: 10px auto 25px; max-width: 200px; }
 
-.btn-main{
-background: var(--main);
-color: white;
-}
-
-.btn-accent{
-background: var(--accent);
-color: white;
-}
-
-.step {
-display: flex;
-align-items: center;
-gap: 12px;
-margin-bottom: 12px;
-}
-
-.step-num{
-background: var(--dark);
-color: white;
-width: 26px; height: 26px;
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 13px;
-flex-shrink: 0;
-}
-
-.price-row {
-display: flex;
-justify-content: space-between;
-margin-bottom: 10px;
-background: #f9ffff;
-padding: 10px 15px;
-border-radius: 15px;
-border-left: 4px solid var(--accent);
-}
-
-.price-tag {
-background: var(--main);
-color: white;
-padding: 3px 12px;
-border-radius: 20px;
-font-size: 14px;
-}
-
-.footer {
-text-align: center;
-margin-top: 30px;
-}
-
-.social {
-display: flex;
-gap: 8px;
-justify-content: center;
-margin-top: 15px;
-}
-
-.social a {
-flex: 1;
-max-width: 100px;
-text-align: center;
-padding: 8px;
-border-radius: 25px;
-background: var(--white);
-text-decoration: none;
-color: var(--dark);
-font-size: 13px;
-border: 1px solid var(--main);
-}
-
-.small {font-size: 12px; opacity: .7; margin-top: 10px;}
+.footer-text { text-align: center; font-size: 10px; color: #ccc; margin-top: 40px; }
 </style>
 </head>
-
 <body>
+
+<div id="emoji-container"></div>
+
 <div class="container">
+    <div class="header-section">
+        <div class="logo-container">
+            <span class="orbit e1">🐳</span>
+            <span class="orbit e2">🐠</span>
+            <span class="orbit e3">🦋</span>
+            <span class="orbit e4">🪼</span>
+            <div class="logo">
+                <img src="att.0s6x5y6gyBz3Q27JNKonjuezkpDX0Fr1zY9NUqwywz4.jpeg" alt="logo">
+            </div>
+        </div>
+        <h1 style="margin-top: 15px;">nongsorin</h1>
+        <p style="font-size: 12px; opacity: 0.6;">บันทึกยอดเงินแบบสมดุล 🌿</p>
+    </div>
 
-<div class="section center" style="border:none; box-shadow:none; background:transparent;">
+    <div class="section">
+        <h2>📝 เพิ่มรายการเงิน</h2>
+        <div class="input-grid">
+            <input type="text" id="desc" placeholder="ค่ากาแฟ, เงินเดือน..." class="full-width">
+            <select id="type">
+                <option value="income">รายรับ (+)</option>
+                <option value="expense">รายจ่าย (-)</option>
+            </select>
+            <input type="date" id="date">
+            <input type="number" id="cost" placeholder="ต้นทุน">
+            <input type="number" id="price" placeholder="ยอดเงิน">
+        </div>
+        <button onclick="addItem()" class="btn-main">บันทึกรายการ ✨</button>
+    </div>
 
-<div class="logo">
-<img src="logo.jpg" alt="nongsorin logo">
+    <div class="section">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h2 style="margin:0;">📊 สรุปภาพรวม</h2>
+            <select id="filterMonth" onchange="calculateSummary()" style="padding: 5px; font-size: 12px; border-radius: 10px;">
+                <option value="all">ทั้งปี 2026</option>
+                <option value="0">ม.ค.</option><option value="1">ก.พ.</option><option value="2">มี.ค.</option>
+                <option value="3">เม.ย.</option><option value="4">พ.ค.</option><option value="5">มิ.ย.</option>
+                <option value="6">ก.ค.</option><option value="7">ส.ค.</option><option value="8">ก.ย.</option>
+                <option value="9">ต.ค.</option><option value="10">พ.ย.</option><option value="11">ธ.ค.</option>
+            </select>
+        </div>
+        
+        <div class="chart-container">
+            <canvas id="balanceChart"></canvas>
+        </div>
+
+        <div class="result-row row-income">
+            <span>รายรับรวม</span>
+            <span id="sumIn">0 ฿</span>
+        </div>
+        <div class="result-row row-expense">
+            <span>รายจ่ายรวม</span>
+            <span id="sumOut">0 ฿</span>
+        </div>
+        <div class="result-row row-profit">
+            <span>กำไรสุทธิ</span>
+            <span id="sumNet" style="font-weight: bold;">0 ฿</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>📅 รายการย้อนหลัง</h2>
+        <div id="displayList"></div>
+        <p onclick="clearData()" style="text-align:center; font-size:10px; color:#ddd; margin-top:30px; cursor:pointer;">รีเซ็ตข้อมูล</p>
+    </div>
+
+    <p class="footer-text">CREATED BY NONGSORIN • 2026</p>
 </div>
 
-<h1>nongsorin</h1>
-<p style="color: var(--dark); opacity: .8; margin: 10px 0 20px;">
-📊 รายรับ รายจ่าย ประจำเดือน
-</p>
+<script>
+    // --- ระบบอิโมจิพื้นหลัง (ลดความถี่ลง) ---
+    const emojiList = ['✨', '🌸', '💧'];
+    function createBg() {
+        if(document.querySelectorAll('.floating-emoji').length > 10) return;
+        const e = document.createElement('div');
+        e.className = 'floating-emoji';
+        e.innerText = emojiList[Math.floor(Math.random() * emojiList.length)];
+        e.style.left = Math.random() * 100 + 'vw';
+        e.style.fontSize = (Math.random() * 10 + 10) + 'px';
+        e.style.animationDuration = (Math.random() * 10 + 10) + 's';
+        document.getElementById('emoji-container').appendChild(e);
+        setTimeout(() => e.remove(), 15000);
+    }
+    setInterval(createBg, 3000);
 
-<div class="badges">
-<div class="badge">📈 สรุปยอด</div>
-<div class="badge">🧹 เคลียร์ข้อมูลได้</div>
-<div class="badge">💎 จัดการง่าย</div>
-</div>
+    // --- ระบบคำนวณเงิน ---
+    let transactions = JSON.parse(localStorage.getItem('balanced_tracker_v2')) || [];
+    let myChart = null;
 
-<a href="#" class="btn btn-outline">
-🔍 เช็คคิวงาน/สถานะระบบ ✨
-</a>
-</div>
+    function addItem() {
+        const desc = document.getElementById('desc').value;
+        const type = document.getElementById('type').value;
+        const date = document.getElementById('date').value;
+        const cost = parseFloat(document.getElementById('cost').value) || 0;
+        const price = parseFloat(document.getElementById('price').value) || 0;
 
-<div class="section">
-<h2>📝 ขั้นตอนการใช้งาน</h2>
+        if(!desc || !date || price <= 0) return alert('กรอกข้อมูลให้ครบถ้วนก่อนนะคะ');
 
-<div class="step"><div class="step-num">1</div><div>บันทึกรายรับ-รายจ่ายรายวัน</div></div>
-<div class="step"><div class="step-num">2</div><div>ระบบคำนวณยอดคงเหลืออัตโนมัติ</div></div>
-<div class="step"><div class="step-num">3</div><div>สรุปยอดรวมประจำเดือน</div></div>
-<div class="step"><div class="step-num">4</div><div>กดเคลียร์ข้อมูลเพื่อเริ่มเดือนใหม่</div></div>
+        transactions.push({ desc, type, date, cost, price });
+        localStorage.setItem('balanced_tracker_v2', JSON.stringify(transactions));
+        
+        document.getElementById('desc').value = '';
+        document.getElementById('cost').value = '';
+        document.getElementById('price').value = '';
+        calculateSummary();
+    }
 
-<a href="#" class="btn btn-main">ดูวิธีใช้งานเพิ่มเติม</a>
-</div>
+    function calculateSummary() {
+        const filter = document.getElementById('filterMonth').value;
+        const listDiv = document.getElementById('displayList');
+        listDiv.innerHTML = '';
+        let tIn = 0, tOut = 0;
 
-<div class="section">
-<h2>💰 รูปแบบบริการ</h2>
+        [...transactions].sort((a,b) => new Date(b.date) - new Date(a.date)).forEach(item => {
+            const d = new Date(item.date);
+            const isMatch = filter === 'all' || d.getMonth().toString() === filter;
 
-<div class="price-row"><span>สรุปยอดรายเดือน</span><span class="price-tag">เริ่มต้น 0฿</span></div>
-<div class="price-row"><span>จัดการไฟล์/ข้อมูล</span><span class="price-tag">Free</span></div>
-<div class="price-row"><span>แบบฟอร์มบรีฟงาน</span><span class="price-tag">สอบถามเพิ่มเติม</span></div>
+            if(isMatch) {
+                if(item.type === 'income') tIn += item.price;
+                else tOut += (item.price + item.cost);
 
-<a href="#" class="btn btn-accent">สั่งทำ/สอบถามราคา</a>
-</div>
+                listDiv.innerHTML += `
+                    <div class="item-card">
+                        <div>
+                            <div style="font-size:14px; font-weight:500;">${item.desc}</div>
+                            <small style="color:#aaa; font-size:10px;">${d.toLocaleDateString('th-TH')}</small>
+                        </div>
+                        <div style="color:${item.type==='income'?'#48bb78':'#f56565'}; font-weight:500;">
+                            ${item.type==='income'?'+':'-'}${item.price.toLocaleString()}
+                        </div>
+                    </div>`;
+            }
+        });
 
-<div class="footer">
-<a href="#" class="btn btn-main">ติดต่อสอบถามคลิก 🎀</a>
+        document.getElementById('sumIn').innerText = tIn.toLocaleString() + ' ฿';
+        document.getElementById('sumOut').innerText = tOut.toLocaleString() + ' ฿';
+        const net = tIn - tOut;
+        document.getElementById('sumNet').innerText = net.toLocaleString() + ' ฿';
+        
+        updateChart(tIn, tOut, net);
+        if(!listDiv.innerHTML) listDiv.innerHTML = '<p style="text-align:center; opacity:0.3; font-size:12px; padding:20px;">ไม่มีรายการจ้ะ</p>';
+    }
 
-<div class="social">
-<a href="#">Facebook</a>
-<a href="#">Instagram</a>
-<a href="#">Line</a>
-</div>
+    function updateChart(inc, out, net) {
+        const ctx = document.getElementById('balanceChart').getContext('2d');
+        if (myChart) myChart.destroy();
+        
+        myChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: ['รายรับ', 'รายจ่าย', 'กำไรสุทธิ'],
+                datasets: [{
+                    data: [inc, out, net > 0 ? net : 0],
+                    backgroundColor: ['#81e6e2', '#f28d8d', '#5c85d6'],
+                    borderWidth: 0,
+                    hoverOffset: 10
+                }]
+            },
+            options: {
+                cutout: '75%',
+                plugins: { legend: { display: false } }
+            }
+        });
+    }
 
-<p class="small">
-© 2026 nongsorin - Financial Tracker
-</p>
-</div>
+    function clearData() { if(confirm('ต้องการลบทั้งหมดใช่ไหม?')) { transactions = []; localStorage.clear(); calculateSummary(); } }
+    
+    document.getElementById('date').valueAsDate = new Date();
+    calculateSummary();
+</script>
 
-</div>
 </body>
 </html>
