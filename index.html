@@ -3,275 +3,285 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>nongsorin - ระบบรายรับ รายจ่าย</title>
+<title>nongsorin - สมุดรายรับรายจ่ายดิจิทัล</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
 :root {
---bg: #f0faff; 
---main: #0abab5; /* Tiffany Blue */
---dark: #0056b3; /* Dark Blue */
---accent: #e63946; /* Red */
---white: #ffffff;
---glow: rgba(10, 186, 181, 0.3);
+    --bg: #f4fafd; 
+    --main: #0abab5; /* Tiffany Blue */
+    --main-light: #e0f7f6;
+    --dark: #0056b3; /* Dark Blue */
+    --accent: #e63946; /* Red */
+    --white: #ffffff;
+    --text: #444;
+    --glow: rgba(10, 186, 181, 0.2);
 }
 
 *{margin: 0; padding: 0; box-sizing: border-box; font-family: 'Mitr', sans-serif;}
 
 body {
-background: var(--bg);
-display: flex;
-justify-content: center;
-}
-
-.container{
-max-width: 500px;
-width: 100%;
-padding: 20px 15px 40px;
-}
-
-.section {
-background: var(--white);
-border-radius: 20px;
-padding: 25px 20px;
-margin-bottom: 20px;
-box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-border: 2px solid var(--main);
-}
-
-h1,h2,h3{color: var(--dark);}
-.center {text-align: center;}
-
-.logo{
-width: 150px; height: 150px;
-border-radius: 50%;
-overflow: hidden;
-margin: 0 auto 20px;
-box-shadow: 0 6px 20px var(--glow);
-border: 3px solid var(--main);
-}
-
-.logo img {width: 100%; height: 100%; object-fit: cover;}
-
-.badges{
-display: flex;
-flex-wrap: wrap;
-justify-content: center;
-gap: 10px;
-margin-bottom: 20px;
-}
-
-.badge{
-background: var(--white);
-padding: 8px 16px;
-border-radius: 25px;
-box-shadow: 0 4px 10px var(--glow);
-font-size: 13px;
-color: var(--dark);
-border: 1px solid var(--main);
-}
-
-/* เพิ่ม CSS สำหรับการกรองข้อมูลโดยเฉพาะ */
-.filter-box {
-    margin-bottom: 15px;
+    background: var(--bg);
     display: flex;
-    gap: 5px;
+    justify-content: center;
+    color: var(--text);
+}
+
+.container {
+    max-width: 500px;
+    width: 100%;
+    padding: 20px 15px 60px;
+}
+
+/* ส่วนกล่องเนื้อหา */
+.section {
+    background: var(--white);
+    border-radius: 24px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    border: 1px solid rgba(10, 186, 181, 0.15);
+}
+
+h1 { color: var(--dark); font-size: 28px; letter-spacing: 1px; }
+h2 { color: var(--dark); font-size: 18px; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; }
+.center { text-align: center; }
+
+/* โลโก้ */
+.logo {
+    width: 130px; height: 130px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 15px;
+    box-shadow: 0 10px 25px var(--glow);
+    border: 4px solid var(--white);
+}
+.logo img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Badges ส่วนบน */
+.badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+.badge {
+    background: var(--white);
+    padding: 6px 14px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    font-size: 13px;
+    color: var(--dark);
+    border: 1.5px solid var(--main-light);
+    font-weight: 500;
+}
+
+/* UI ส่วนกรอกข้อมูล */
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 input, select {
-    padding: 8px;
-    border-radius: 10px;
-    border: 1px solid var(--main);
-    flex: 1;
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 12px;
+    border: 1.5px solid #eee;
+    background: #fdfdfd;
+    outline: none;
+    transition: 0.3s;
+    font-size: 15px;
+}
+input:focus, select:focus {
+    border-color: var(--main);
+    box-shadow: 0 0 0 4px var(--glow);
 }
 
-.btn{
-display: block;
-text-align: center;
-padding: 14px;
-border-radius: 25px;
-text-decoration: none;
-margin-top: 15px;
-font-weight: 500;
-transition: 0.3s;
-cursor: pointer;
-border: none;
-width: 100%;
+/* ปุ่มต่างๆ */
+.btn {
+    display: block;
+    text-align: center;
+    padding: 14px;
+    border-radius: 15px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: 0.3s;
+    cursor: pointer;
+    border: none;
+    font-size: 16px;
 }
+.btn:active { transform: scale(0.98); }
 
 .btn-outline {
-background: transparent;
-border: 2px dashed var(--main);
-color: var(--dark);
+    background: transparent;
+    border: 2px dashed var(--main);
+    color: var(--dark);
+    margin-top: 10px;
+}
+.btn-main {
+    background: var(--main);
+    color: white;
+    box-shadow: 0 6px 15px var(--glow);
+}
+.btn-accent {
+    background: var(--accent);
+    color: white;
+    box-shadow: 0 6px 15px rgba(230, 57, 70, 0.2);
 }
 
-.btn-main{
-background: var(--main);
-color: white;
+/* รายการบันทึก */
+#displayList {
+    margin-top: 10px;
+    max-height: 250px;
+    overflow-y: auto;
+    padding-right: 5px;
 }
+#displayList::-webkit-scrollbar { width: 4px; }
+#displayList::-webkit-scrollbar-thumb { background: #eee; border-radius: 10px; }
 
-.btn-accent{
-background: var(--accent);
-color: white;
+.item-card {
+    background: #fcfdfd;
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #f0f0f0;
 }
+.item-info { display: flex; flex-direction: column; }
+.item-name { font-weight: 500; font-size: 14px; color: #333; }
+.item-date { font-size: 11px; color: #999; }
+.item-amount { font-weight: 500; font-size: 15px; }
 
-.step {
-display: flex;
-align-items: center;
-gap: 12px;
-margin-bottom: 12px;
-}
-
-.step-num{
-background: var(--dark);
-color: white;
-width: 26px; height: 26px;
-border-radius: 50%;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 13px;
-flex-shrink: 0;
-}
-
+/* สรุปยอด */
 .price-row {
-display: flex;
-justify-content: space-between;
-margin-bottom: 10px;
-background: #f9ffff;
-padding: 10px 15px;
-border-radius: 15px;
-border-left: 4px solid var(--accent);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    background: var(--main-light);
+    padding: 12px 18px;
+    border-radius: 15px;
 }
-
 .price-tag {
-background: var(--main);
-color: white;
-padding: 3px 12px;
-border-radius: 20px;
-font-size: 14px;
+    background: var(--white);
+    color: var(--main);
+    padding: 4px 15px;
+    border-radius: 10px;
+    font-weight: 600;
+    min-width: 80px;
+    text-align: center;
 }
 
-.footer {
-text-align: center;
-margin-top: 30px;
-}
-
-.social {
-display: flex;
-gap: 8px;
-justify-content: center;
-margin-top: 15px;
-}
-
+.footer { text-align: center; margin-top: 20px; }
+.social { display: flex; gap: 10px; justify-content: center; margin-top: 15px; }
 .social a {
-flex: 1;
-max-width: 100px;
-text-align: center;
-padding: 8px;
-border-radius: 25px;
-background: var(--white);
-text-decoration: none;
-color: var(--dark);
-font-size: 13px;
-border: 1px solid var(--main);
+    background: var(--white);
+    padding: 8px 15px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: var(--dark);
+    font-size: 13px;
+    border: 1px solid #eee;
 }
-
-.small {font-size: 12px; opacity: .7; margin-top: 10px;}
-
-/* สไตล์เพิ่มเติมสำหรับรายการที่แสดง */
-#displayList { margin-top: 15px; max-height: 200px; overflow-y: auto; }
-.item-card { font-size: 14px; padding: 5px 0; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; }
+.small { font-size: 12px; color: #bbb; margin-top: 15px; }
 </style>
 </head>
 
 <body>
 <div class="container">
 
-<div class="section center" style="border:none; box-shadow:none; background:transparent;">
-    <div class="logo">
-        <img src="https://via.placeholder.com/150" alt="nongsorin logo">
-    </div>
-    <h1>nongsorin</h1>
-    <p style="color: var(--dark); opacity: .8; margin: 10px 0 20px;">
-        📊 ระบบสรุปยอด รายรับ-รายจ่าย
-    </p>
-
-    <div class="badges">
-        <div class="badge" id="badge-month">เดือนนี้: 0</div>
-        <div class="badge" id="badge-year" style="border-color: var(--accent);">ปีนี้: 0</div>
-        <div class="badge">🧹 เคลียร์ได้</div>
-    </div>
-
-    <button onclick="calculateSummary()" class="btn btn-outline">
-        🔍 กรองข้อมูลและสรุปยอด ✨
-    </button>
-</div>
-
-<div class="section">
-    <h2>📝 บันทึกรายการ</h2>
-    <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
-        <input type="text" id="desc" placeholder="รายการ (เช่น ขายของ, ค่าข้าว)">
-        <input type="number" id="amount" placeholder="จำนวนเงิน">
-        <select id="type">
-            <option value="income">รายรับ (+)</option>
-            <option value="expense">รายจ่าย (-)</option>
-        </select>
-        <input type="date" id="date">
-    </div>
-    <button onclick="addItem()" class="btn btn-main">บันทึกรายการ</button>
-</div>
-
-<div class="section">
-    <h2>📅 รายการทั้งหมด</h2>
-    <div class="filter-box">
-        <select id="filterMonth" onchange="calculateSummary()">
-            <option value="all">ทุกเดือน</option>
-            <option value="0">มกราคม</option>
-            <option value="1">กุมภาพันธ์</option>
-            <option value="2">มีนาคม</option>
-            <option value="3">เมษายน</option>
-            <option value="4">พฤษภาคม</option>
-            <option value="5">มิถุนายน</option>
-            <option value="6">กรกฎาคม</option>
-            <option value="7">สิงหาคม</option>
-            <option value="8">กันยายน</option>
-            <option value="9">ตุลาคม</option>
-            <option value="10">พฤศจิกายน</option>
-            <option value="11">ธันวาคม</option>
-        </select>
-    </div>
-    
-    <div id="displayList">
+    <div class="section center" style="background:transparent; border:none; box-shadow:none; padding-bottom: 10px;">
+        <div class="logo">
+            <img src="https://via.placeholder.com/150" alt="logo">
+        </div>
+        <h1>nongsorin</h1>
+        <p style="color: var(--dark); opacity: 0.7; font-size: 14px; margin-top: 5px;">จัดการเงินง่ายๆ ในสไตล์คุณ ✨</p>
+        
+        <div class="badges" style="margin-top: 20px;">
+            <div class="badge" id="badge-month">เดือนนี้: 0</div>
+            <div class="badge" id="badge-year" style="border-color: var(--main);">ปีนี้: 0</div>
+            <div class="badge">สรุปอัตโนมัติ</div>
         </div>
 
-    <button onclick="clearData()" class="btn btn-outline" style="margin-top: 10px; color: var(--accent); border-color: var(--accent);">ล้างข้อมูลทั้งหมด</button>
-</div>
-
-<div class="section">
-    <h2>💰 สรุปยอดเงิน</h2>
-    <div class="price-row"><span>รายรับรวม</span><span class="price-tag" id="totalIncome">0฿</span></div>
-    <div class="price-row"><span>รายจ่ายรวม</span><span class="price-tag" style="background:var(--accent)" id="totalExpense">0฿</span></div>
-    <div class="price-row"><span>ยอดคงเหลือ</span><span class="price-tag" id="netBalance">0฿</span></div>
-
-    <a href="#" class="btn btn-accent">ดาวน์โหลดรายงาน (CSV)</a>
-</div>
-
-<div class="footer">
-    <a href="#" class="btn btn-main">ติดต่อสอบถามคลิก 🎀</a>
-    <div class="social">
-        <a href="#">Facebook</a>
-        <a href="#">Instagram</a>
-        <a href="#">Line</a>
+        <button onclick="calculateSummary()" class="btn btn-outline">
+            🔍 กรองข้อมูล & อัปเดตยอดเงิน
+        </button>
     </div>
-    <p class="small">© 2026 nongsorin - Financial Tracker</p>
-</div>
+
+    <div class="section">
+        <h2>📝 บันทึกรายรับ-รายจ่าย</h2>
+        <div class="input-group">
+            <input type="text" id="desc" placeholder="เช่น ขายของ, ซื้อกาแฟ...">
+            <input type="number" id="amount" placeholder="จำนวนเงิน (บาท)">
+            <div style="display: flex; gap: 10px;">
+                <select id="type" style="flex: 1;">
+                    <option value="income">➕ รายรับ</option>
+                    <option value="expense">➖ รายจ่าย</option>
+                </select>
+                <input type="date" id="date" style="flex: 1.5;">
+            </div>
+            <button onclick="addItem()" class="btn btn-main" style="margin-top: 5px;">บันทึกลงสมุด</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <h2 style="margin:0;">📅 รายการเดือน</h2>
+            <select id="filterMonth" onchange="calculateSummary()" style="width: auto; padding: 5px 10px; height: 35px; font-size: 13px;">
+                <option value="all">ทั้งหมด</option>
+                <option value="0">ม.ค.</option><option value="1">ก.พ.</option><option value="2">มี.ค.</option>
+                <option value="3">เม.ย.</option><option value="4">พ.ค.</option><option value="5">มิ.ย.</option>
+                <option value="6">ก.ค.</option><option value="7">ส.ค.</option><option value="8">ก.ย.</option>
+                <option value="9">ต.ค.</option><option value="10">พ.ย.</option><option value="11">ธ.ค.</option>
+            </select>
+        </div>
+        
+        <div id="displayList">
+            </div>
+
+        <button onclick="clearData()" style="background: none; border: none; color: #ccc; font-size: 12px; width: 100%; margin-top: 15px; cursor: pointer; text-decoration: underline;">
+            ล้างข้อมูลทั้งหมด
+        </button>
+    </div>
+
+    <div class="section">
+        <h2>💰 สรุปผลลัพธ์</h2>
+        <div class="price-row">
+            <span style="color: var(--dark); font-weight: 500;">รายรับ (In)</span>
+            <span class="price-tag" id="totalIncome" style="color: #27ae60;">0</span>
+        </div>
+        <div class="price-row" style="background: #fff5f5;">
+            <span style="color: var(--accent); font-weight: 500;">รายจ่าย (Out)</span>
+            <span class="price-tag" id="totalExpense" style="color: var(--accent);">0</span>
+        </div>
+        <div class="price-row" style="background: var(--dark); color: white;">
+            <span>คงเหลือรวม</span>
+            <span id="netBalance" style="font-weight: 600; font-size: 18px;">0</span>
+        </div>
+
+        <button class="btn btn-accent" style="width: 100%; margin-top: 10px;" onclick="exportToCSV()">
+            📥 ดาวน์โหลดรายงานสรุป
+        </button>
+    </div>
+
+    <div class="footer">
+        <a href="#" class="btn btn-main" style="display: inline-block; padding: 10px 30px;">ติดต่อเรา 🎀</a>
+        <div class="social">
+            <a href="#">FB</a>
+            <a href="#">IG</a>
+            <a href="#">Line</a>
+        </div>
+        <p class="small">© 2026 nongsorin - Financial Tracker</p>
+    </div>
 
 </div>
 
 <script>
-    // ระบบจัดการข้อมูล
-    let transactions = JSON.parse(localStorage.getItem('nongsorin_data')) || [];
+    let transactions = JSON.parse(localStorage.getItem('nongsorin_pro_data')) || [];
 
     function addItem() {
         const desc = document.getElementById('desc').value;
@@ -279,15 +289,21 @@ border: 1px solid var(--main);
         const type = document.getElementById('type').value;
         const date = document.getElementById('date').value;
 
-        if(!desc || !amount || !date) return alert('กรุณากรอกข้อมูลให้ครบ');
+        if(!desc || isNaN(amount) || !date) {
+            alert('กรุณากรอกข้อมูลให้ครบถ้วนนะคะ');
+            return;
+        }
 
-        transactions.push({ desc, amount, type, date: new Date(date).toISOString() });
-        localStorage.setItem('nongsorin_data', JSON.stringify(transactions));
+        transactions.push({ desc, amount, type, date });
+        saveAndRender();
         
-        // ล้างค่า
+        // ล้างค่า input
         document.getElementById('desc').value = '';
         document.getElementById('amount').value = '';
-        
+    }
+
+    function saveAndRender() {
+        localStorage.setItem('nongsorin_pro_data', JSON.stringify(transactions));
         calculateSummary();
     }
 
@@ -299,27 +315,30 @@ border: 1px solid var(--main);
         let income = 0;
         let expense = 0;
         let yearTotal = 0;
-
         const currentYear = new Date().getFullYear();
 
-        transactions.forEach((item, index) => {
-            const itemDate = new Date(item.date);
-            const isMatchMonth = filterMonth === 'all' || itemDate.getMonth().toString() === filterMonth;
+        // เรียงลำดับวันที่ล่าสุดขึ้นก่อน
+        const sortedData = [...transactions].sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        sortedData.forEach(item => {
+            const d = new Date(item.date);
+            const isMatch = filterMonth === 'all' || d.getMonth().toString() === filterMonth;
             
-            // สรุปยอดรายปี (ของปีปัจจุบัน)
-            if(itemDate.getFullYear() === currentYear) {
+            if(d.getFullYear() === currentYear) {
                 yearTotal += (item.type === 'income' ? item.amount : -item.amount);
             }
 
-            if (isMatchMonth) {
+            if(isMatch) {
                 if(item.type === 'income') income += item.amount;
                 else expense += item.amount;
 
-                // แสดงรายการ
                 listDiv.innerHTML += `
                     <div class="item-card">
-                        <span>${item.desc} (${new Date(item.date).toLocaleDateString('th-TH')})</span>
-                        <span style="color:${item.type === 'income' ? 'green' : 'red'}">
+                        <div class="item-info">
+                            <span class="item-name">${item.desc}</span>
+                            <span class="item-date">${d.toLocaleDateString('th-TH')}</span>
+                        </div>
+                        <span class="item-amount" style="color: ${item.type === 'income' ? '#27ae60' : 'var(--accent)'}">
                             ${item.type === 'income' ? '+' : '-'}${item.amount.toLocaleString()}
                         </span>
                     </div>
@@ -327,22 +346,35 @@ border: 1px solid var(--main);
             }
         });
 
-        document.getElementById('totalIncome').innerText = income.toLocaleString() + '฿';
-        document.getElementById('totalExpense').innerText = expense.toLocaleString() + '฿';
-        document.getElementById('netBalance').innerText = (income - expense).toLocaleString() + '฿';
-        document.getElementById('badge-month').innerText = 'เดือนนี้: ' + (income - expense).toLocaleString();
-        document.getElementById('badge-year').innerText = 'ปีนี้: ' + yearTotal.toLocaleString();
+        document.getElementById('totalIncome').innerText = income.toLocaleString();
+        document.getElementById('totalExpense').innerText = expense.toLocaleString();
+        document.getElementById('netBalance').innerText = (income - expense).toLocaleString() + ' ฿';
+        document.getElementById('badge-month').innerText = 'ยอดเดือนนี้: ' + (income - expense).toLocaleString();
+        document.getElementById('badge-year').innerText = 'ปี ' + currentYear + ': ' + yearTotal.toLocaleString();
+        
+        if(listDiv.innerHTML === '') listDiv.innerHTML = '<p style="text-align:center; color:#ccc; font-size:13px; padding:20px;">ไม่มีข้อมูลรายการ</p>';
     }
 
     function clearData() {
-        if(confirm('ต้องการลบข้อมูลทั้งหมดใช่หรือไม่?')) {
+        if(confirm('คุณต้องการลบรายการทั้งหมดใช่ไหม?')) {
             transactions = [];
-            localStorage.removeItem('nongsorin_data');
-            calculateSummary();
+            saveAndRender();
         }
     }
 
-    // โหลดข้อมูลครั้งแรก
+    function exportToCSV() {
+        if(transactions.length === 0) return alert('ไม่มีข้อมูลให้ออกรายงานค่ะ');
+        let csv = 'วันที่,รายการ,ประเภท,จำนวนเงิน\n';
+        transactions.forEach(t => {
+            csv += `${t.date},${t.desc},${t.type === 'income' ? 'รายรับ' : 'รายจ่าย'},${t.amount}\n`;
+        });
+        const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.download = "report_nongsorin.csv";
+        link.click();
+    }
+
     document.getElementById('date').valueAsDate = new Date();
     calculateSummary();
 </script>
